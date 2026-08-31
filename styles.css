@@ -429,11 +429,11 @@ footer .footer__top:hover{transform:scale(1.08);opacity:1}
      three sub-groups with 16 / 24 / 32px internal rhythm that one flex gap can't express. */
   .hero{min-height:0;display:flex;flex-direction:column;gap:0;padding:40px 30px 48px}
   .hero__copy{display:contents}                 /* unwrap so heading/name/keywords/CTA become hero flex items */
-  .hero h1,.hero__name,.hero__keywords{color:#fff}   /* copy no longer boxes them, so set text colour directly (user: keep hero copy white on mobile too) */
+  .hero h1,.hero__name{color:#fff}   /* copy no longer boxes them, so set text colour directly (user: keep heading + name white on mobile too; keywords stay dark like desktop) */
   .star--top{position:static;width:48px;margin:0 0 32px;align-self:flex-start}
   .hero h1{font-size:44px;line-height:56px}
   .hero__name{margin-top:16px;font-size:20px;line-height:28px}
-  .hero__keywords{margin-top:16px;margin-bottom:0;font-size:14px}
+  .hero__keywords{margin-top:16px;margin-bottom:0;font-size:14px;color:#262626}
   .hero__portrait{position:static;top:auto;right:auto;bottom:auto;display:block;width:min(320px,100%);height:auto;aspect-ratio:4/5;margin:32px auto 0;opacity:1;border-radius:24px}
   .project-count{position:static;right:auto;bottom:auto;width:auto;height:auto;min-height:0;margin:24px auto 0;padding:12px 22px}
   .hero__actions{order:1;gap:12px;margin-top:32px;width:100%}
