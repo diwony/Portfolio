@@ -67,20 +67,19 @@ img{max-width:100%}
 .star--bottom{top:59%;left:43%;width:75px;animation-delay:2.4s}
 @keyframes star-twinkle{0%,68%,100%{transform:scale(1)}82%{transform:scale(1.06)}92%{transform:scale(.95)}}
 @media(prefers-reduced-motion:reduce){.star{animation:none}}
-/* The stars and the "ABOUT" tag are placed as a % of the hero box, which only
-   clears the copy while the centred container still has an outer margin
-   (viewport ≳ 1800px). Below that the margin collapses to 32px: the hero copy's
-   top padding is pinned at its 84px minimum (flush under the header) and the
-   h1's left edge reaches x≈32px, so there is neither a vertical band above the
-   h1 nor horizontal room beside it for the absolute % star — it landed on the
-   heading. So from 1800px down, drop star--top into the flow: a static block
-   above the h1, indented to the copy's left edge and clearing the fixed header
-   with a top margin. The heading shifts down to make room — the same idea as
-   the 660px mobile layout, where it also becomes an in-flow element.
+/* Above 1800px the % star sits in the outer margin of the centred hero copy.
+   Below that the margin would collapse to 32px and the star would land on the
+   heading — so instead of dropping the star, we hold a left gutter for it:
+   hero__copy keeps a left padding equal to the centring margin at 1800px
+   (118px) that eases to ~92px as the viewport narrows, and star--top stays
+   absolutely placed inside that gutter, gliding up-left and shrinking with the
+   viewport. At the 1800px boundary the two placements coincide (top≈148 /
+   left≈27 / width≈80), so there is no position jump and no heading reflow; the
+   headline keeps its column throughout.
    (star--bottom returns above 1400px, the ABOUT tag above 1550px.) */
 @media(max-width:1800px){
-  .star--top{position:static;display:block;width:clamp(46px,4vw,64px);margin:78px 0 14px max(32px,calc((100vw - 1564px)/2))}
-  .hero__copy{padding-top:0}
+  .star--top{top:clamp(84px,8.3vw,148px);left:clamp(16px,1.5vw,28px);width:clamp(46px,4.4vw,80px)}
+  .hero__copy{padding-left:clamp(92px,calc((100vw - 1564px)/2),118px)}
 }
 @media(max-width:1550px){
   .hero__about{display:none}
@@ -355,8 +354,7 @@ footer .footer__top:hover{transform:scale(1.08);opacity:1}
   .site-header{width:calc(100% - 32px);top:10px;height:50px;padding:6px 16px}
   .site-header nav{display:none}
   .hero{min-height:880px}
-  .hero__copy{width:100%;padding:0 28px 0}
-  .star--top{margin-left:28px}
+  .hero__copy{width:100%;padding:84px 28px 0 72px}
   .hero h1{font-size:48px}
   .hero__name{font-size:22px}
   .hero__portrait{top:auto;right:-25%;bottom:0;width:78vw;opacity:.9}
