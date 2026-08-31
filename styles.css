@@ -1,0 +1,572 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600&display=swap');
+@font-face{font-family:'Paperlogy';src:url('./assets/Paperlogy-4Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Paperlogy';src:url('./assets/Paperlogy-5Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Paperlogy';src:url('./assets/Paperlogy-6SemiBold.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Paperlogy';src:url('./assets/Paperlogy-7Bold.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
+:root{
+  --ink:#080808;--soft:#f8f6fd;--yellow:#f7d046;--muted:#8c8c8c;--lavender:#e2d7ff;
+  /* Serpentine section-flow token: how far one colour swells up into the next */
+  --wave-h:clamp(60px,7vw,120px);
+  /* Figma Typography variables (size/*) */
+  --fs-h1:80px;--fs-h2:48px;--fs-h3:32px;--fs-h4:24px;
+  --fs-body-lg:20px;--fs-body-md:18px;--fs-body-sm:16px;--fs-body-xs:14px;
+  --fs-button-lg:18px;
+  --fs-hero-name:38px;--fs-hero-keywords:28px;--fs-hero-counter:64px;--fs-cta-h2:56px;--fs-intro-body:28px;
+  --fs-entry-title:19px;--fs-entry-date:15px;--fs-values-desc:22px;
+  font-family:'Paperlogy','Noto Sans KR',sans-serif;color:var(--ink);background:var(--soft)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{min-width:320px;margin:0;word-break:keep-all;background:#e2d7ff}
+/* overflow:clip (not hidden) clips decorative overflow without creating a
+   scroll container, so descendant position:sticky project cards still stick. */
+main{position:relative;overflow:clip;background:#e9e1fc}
+a{color:inherit;text-decoration:none}
+/* Kill the mobile browser tap-highlight + focus chrome so links/buttons don't
+   flash a translucent blue/purple box on touch (Chrome's default highlight is
+   rgba(51,181,229,.4); over the lavender header it reads as a purple chip).
+   Desktop has no such highlight — this keeps the two in sync. */
+*{-webkit-tap-highlight-color:transparent}
+/* No focus ring on the header links: on touch, Chrome fires :focus-visible when
+   you tap a fragment link, so the ring stuck around the CONTACT link after tap —
+   that was the "box" that showed on mobile but not on desktop (mouse clicks
+   never trigger :focus-visible). Keep a real ring on the page's big buttons. */
+:focus{outline:none}
+.button:focus-visible,.project-modal__link-btn:focus-visible,.project-card__detail-btn:focus-visible{outline:2px solid rgba(8,8,8,.55);outline-offset:3px}
+img{max-width:100%}
+
+/* ---------- Header ---------- */
+.site-header{position:fixed;z-index:200;top:16px;left:50%;display:flex;align-items:center;justify-content:space-between;width:min(calc(100% - 48px),1564px);height:56px;padding:8px 22px;transform:translateX(-50%);color:var(--ink);font-size:var(--fs-body-sm);font-weight:600;background:rgba(226,215,255,.62);backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);border:1px solid rgba(255,255,255,.45);border-radius:999px;box-shadow:0 10px 28px rgba(30,20,60,.16),inset 0 1px 0 rgba(255,255,255,.5)}
+.site-header nav{display:flex;gap:24px;font-weight:500}
+.contact-link{padding:8px 20px;border-radius:999px;background:var(--yellow);color:#000;font-weight:600}
+[id]{scroll-margin-top:88px}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;isolation:isolate;min-height:clamp(760px,66.45vw,1276px);overflow:hidden;background:transparent}
+/* decorative background circles/blobs removed — the page-wide serpentine is the only motif */
+.hero__background,.hero__blob,.background__blob,.projects__blob,.project-ring,.cta__blob,.triple-dots{display:none!important}
+.hero__background{position:absolute;z-index:-3;width:100%;height:100%;object-fit:cover;inset:0}
+.hero__blob{position:absolute;z-index:-2;top:17%;left:34%;width:clamp(1000px,88vw,1700px)}
+.hero__copy{position:relative;z-index:2;width:min(950px,62vw);padding:clamp(180px,12.9vw,248px) 0 0 max(32px,calc((100vw - 1564px)/2));color:#fff}
+.hero h1{margin:0;font-size:var(--fs-h1);font-weight:700;line-height:1.15;letter-spacing:-.03em;text-transform:capitalize}
+.hero__name{margin:6px 0 0;font-size:var(--fs-hero-name);font-weight:500;letter-spacing:.02em}
+.hero__actions{display:flex;gap:63px;margin-top:clamp(72px,11.4vw,219px)}
+.button{display:grid;place-items:center;width:220px;height:60px;border-radius:30px;font-size:var(--fs-button-lg);font-weight:600}
+.button--dark{background:#000;color:#fff}
+.button--line{border:1.5px solid #000;color:#000}
+.button,.project-modal__link-btn{transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s cubic-bezier(.16,1,.3,1)}
+.button:hover,.project-modal__link-btn:hover{transform:translateY(-5px) scale(1.06);box-shadow:0 16px 30px -10px rgba(0,0,0,.4)}
+.button:active,.project-modal__link-btn:active{transform:translateY(-2px) scale(1.02)}
+.contact-link{transition:transform .3s cubic-bezier(.16,1,.3,1)}
+.hero__keywords{margin-top:80px;font-size:min(var(--fs-hero-keywords),2.7vw);font-weight:600;color:#2b2350;white-space:nowrap}
+.hero__about{position:absolute;z-index:2;top:52%;left:41%;font-size:var(--fs-body-lg);font-weight:600;letter-spacing:.08em;text-transform:capitalize}
+.hero__about i{display:block;width:40px;height:2px;background:#000;transform:translateY(-16px)}
+.hero__portrait{position:absolute;z-index:1;top:17.5%;right:6.7%;width:min(36.7vw,704px);height:auto}
+.star{position:absolute;z-index:2;animation:star-twinkle 5.5s ease-in-out infinite}
+.star--top{top:15.3%;left:1.5%;width:82px;animation-delay:0s}
+.star--bottom{top:59%;left:43%;width:75px;animation-delay:2.4s}
+@keyframes star-twinkle{0%,68%,100%{transform:scale(1)}82%{transform:scale(1.06)}92%{transform:scale(.95)}}
+@media(prefers-reduced-motion:reduce){.star{animation:none}}
+/* The stars and the "ABOUT" tag are placed as a % of the hero box, which only
+   clears the copy while the centred container still has an outer margin
+   (viewport ≳ 1800px). Below that the margin collapses to 32px and they drift
+   onto the H1 / name line, so: park star--top in the band between the header
+   and the H1, and drop the decorations that have no room beside the copy
+   (star--bottom returns above 1400px, the ABOUT tag above 1550px). */
+@media(max-width:1800px){
+  .star--top{top:clamp(84px,6vw,116px);left:clamp(16px,2vw,40px);width:clamp(46px,4vw,64px)}
+}
+@media(max-width:1550px){
+  .hero__about{display:none}
+}
+@media(max-width:1400px){
+  .star--bottom{display:none}
+}
+.project-count{position:absolute;right:4.2%;bottom:7.5%;z-index:3;display:flex;align-items:center;gap:clamp(12px,1.6vw,22px);width:clamp(190px,15vw,224px);height:auto;min-height:clamp(74px,6vw,92px);padding:clamp(12px,1.4vw,16px) clamp(20px,2vw,30px);border-radius:999px;background:#fffb9e;box-shadow:0 12px 12px #0000001f}
+.project-count strong{font-size:clamp(32px,3vw,44px);line-height:1;font-weight:600}
+.project-count span{margin-left:auto;font-size:clamp(12px,0.95vw,14px);font-weight:600}
+.project-count__icon{display:none;flex-shrink:0;width:24px;height:24px}
+
+/* ---------- Hero intro reveal (fires once on load, not on scroll) ---------- */
+.hero__line{display:block;opacity:0;transform:translateY(36px);transition:opacity .7s cubic-bezier(.16,.84,.44,1),transform .7s cubic-bezier(.16,.84,.44,1)}
+.hero__line:nth-child(2){transition-delay:.12s}
+.hero__line:nth-child(3){transition-delay:.24s}
+.hero__name{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.16,.84,.44,1) .38s,transform .7s cubic-bezier(.16,.84,.44,1) .38s}
+.hero__portrait{opacity:0;transform:translateY(24px) scale(.97);transition:opacity .9s cubic-bezier(.16,.84,.44,1) .15s,transform .9s cubic-bezier(.16,.84,.44,1) .15s}
+.hero__actions{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.16,.84,.44,1) .5s,transform .7s cubic-bezier(.16,.84,.44,1) .5s}
+.hero__about{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.16,.84,.44,1) .55s,transform .7s cubic-bezier(.16,.84,.44,1) .55s}
+.hero__keywords{opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,.84,.44,1) .62s,transform .7s cubic-bezier(.16,.84,.44,1) .62s}
+.project-count{opacity:0;transform:translateY(20px) scale(.9);transition:opacity .6s cubic-bezier(.16,.84,.44,1) .6s,transform .6s cubic-bezier(.16,.84,.44,1) .6s}
+.hero.is-loaded .hero__line,.hero.is-loaded .hero__name,.hero.is-loaded .hero__actions,.hero.is-loaded .hero__about,.hero.is-loaded .hero__keywords{opacity:1;transform:none}
+.hero.is-loaded .hero__portrait{opacity:1;transform:none}
+.hero.is-loaded .project-count{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.hero__line,.hero__name,.hero__portrait,.hero__actions,.hero__about,.hero__keywords,.project-count{transition:none;opacity:1;transform:none}}
+
+/* ---------- Shared section rhythm ---------- */
+.section{position:relative;isolation:isolate;padding:96px max(32px,calc((100vw - 1564px)/2))}
+.eyebrow{margin:0 0 20px;color:var(--muted);font-size:var(--fs-body-xs);font-weight:600;letter-spacing:.05em}
+.section h2,.cta h2{margin:0;font-size:var(--fs-h2);font-weight:700;line-height:1.15;letter-spacing:-.03em}
+
+/* ---------- Intro ---------- */
+.intro{min-height:620px;display:flex;flex-direction:column;justify-content:center;gap:24px}
+.intro>p:last-child{margin:0;color:#444;font-size:var(--fs-intro-body);line-height:1.7}
+
+/* ---------- Background (학력·경력·자격) ---------- */
+.background{position:relative;overflow:hidden;background:var(--soft)}
+.background__blob{position:absolute;z-index:0;top:-28%;left:-49%;width:88%;pointer-events:none}
+.background>*:not(.background__blob){position:relative;z-index:1}
+.background__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:64px}
+.background__grid h3{margin:0 0 16px;font-size:var(--fs-h4);font-weight:600;line-height:normal}
+.background__grid .divider{height:1px;background:#d9d9e0;margin-bottom:24px}
+.info-rows{margin:0}
+.info-rows div{display:flex;align-items:center;gap:10px;margin:16px 0}
+.info-rows div:first-child{margin-top:0}
+.info-rows dt{flex:0 0 60px;color:var(--muted);font-size:var(--fs-body-sm);font-weight:400}
+.info-rows dd{margin:0;font-size:var(--fs-body-md);font-weight:600;white-space:nowrap}
+.entry-cols{display:flex;gap:4px}
+.entry-cols .entry-rows{flex:1 1 0}
+.entry-rows{margin:0}
+.entry-rows div{margin:16px 0}
+.entry-rows div:first-child{margin-top:0}
+.entry-rows dt{margin:0;font-size:var(--fs-entry-title);font-weight:600;line-height:24px}
+.entry-rows dd{margin:4px 0 0;font-size:var(--fs-entry-date);font-weight:400;color:var(--muted)}
+.triple-dots{position:absolute;right:6%;bottom:6%;display:flex;width:120px;opacity:.8}
+
+/* ---------- Projects ---------- */
+/* clip keeps the decorative artwork contained without creating a scroll container;
+   overflow:hidden would stop descendant position:sticky cards from sticking. */
+.projects{position:relative;overflow:clip;background:linear-gradient(90deg,#f8f6fd,#e2d7ff)}
+.projects__blob{position:absolute;z-index:0;right:-18%;bottom:8%;width:60%;pointer-events:none}
+.projects>*:not(.projects__blob):not(.project-ring){position:relative;z-index:1}
+.projects .eyebrow{font-weight:400;letter-spacing:0;color:#000;font-size:var(--fs-body-sm)}
+.projects h2{font-size:var(--fs-h2);line-height:1.1}
+.projects__divider{height:1px;background:#d9d4eb;opacity:.4;margin:32px 0 56px}
+/* Stacking mechanics ported from https://scroll-driven-animations.style/demos/stacking-cards/waapi/ */
+/* Rows are auto-sized: each card is exactly as tall as its own content (poster
+   shown whole at its 850x464 ratio + the face below). A fixed row height was
+   cropping the poster's top on wide screens and clipping the "자세히 보기"
+   button on narrow ones. */
+.project-list{
+  --card-margin: 32px;
+  --card-top-offset: 16px;
+  --card-sticky-top: 88px;
+  list-style:none;margin:0 auto;padding-bottom:calc(var(--numcards, 5) * var(--card-top-offset));
+  max-width:980px;
+  display:grid;grid-template-columns:1fr;grid-auto-rows:auto;gap:var(--card-margin)
+}
+.card{position:sticky;top:var(--card-sticky-top);padding-top:calc(var(--index) * var(--card-top-offset))}
+.card__content{transform-origin:50% 0%;will-change:transform}
+/* ---------- Project card (compact, click-to-open-modal) ---------- */
+/* "Glass-bead" depth — box-shadow only, card size unchanged:
+   three stacked drop shadows (tight contact → mid → deep ambient) float the
+   card well above the page, and two inset layers round the surface like glass —
+   a bright top gloss highlight and a soft lower inner shade. */
+.project-card{position:relative;overflow:hidden;width:100%;height:auto;display:flex;flex-direction:column;border-radius:20px;background:#f3efff;cursor:pointer;box-shadow:0 3px 8px rgba(45,25,90,.14),0 16px 30px -10px rgba(45,25,90,.30),0 40px 70px -22px rgba(45,25,90,.44),inset 0 2px 4px rgba(255,255,255,.9),inset 0 -22px 42px -24px rgba(60,35,120,.22);transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s cubic-bezier(.16,1,.3,1)}
+.project-card:hover{box-shadow:0 5px 12px rgba(45,25,90,.16),0 24px 44px -12px rgba(45,25,90,.36),0 60px 100px -26px rgba(45,25,90,.55),inset 0 2px 4px rgba(255,255,255,.95),inset 0 -22px 42px -24px rgba(60,35,120,.24)}
+/* Media locked to the poster's own 850x464 ratio at every width, so object-fit:
+   cover never has spare box to crop into — the whole poster (title text and all)
+   stays visible. The face sits below it and the card grows to fit both. */
+.project-card__media{position:relative;flex:none;aspect-ratio:850/464;min-height:0;background:#000;overflow:hidden}
+.project-card__thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.project-card:hover .project-card__thumb{transform:scale(1.04)}
+.project-card__thumb--empty{position:absolute;inset:0;display:grid;place-items:center;background:#f5f5f5;color:#fff;font-size:var(--fs-body-md);font-weight:600;line-height:1.3;text-align:center}
+.project-card__face{flex:0 0 auto;padding:22px 28px}
+.project-card__face-head{display:flex;align-items:baseline;gap:14px}
+.project-card__num{margin:0;font-size:var(--fs-body-lg);font-weight:700;color:#8f6fd6}
+.project-card__tag{margin:0;color:var(--muted);font-size:var(--fs-body-sm);font-weight:600;letter-spacing:.04em}
+.project-card__title{margin:8px 0 0;font-size:var(--fs-h3);font-weight:700}
+.project-card__face-meta{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:18px}
+.project-card__period{color:var(--muted);font-size:var(--fs-body-md);font-weight:400}
+.project-card__detail-btn{display:flex;align-items:center;gap:12px;padding:17px 32px;border:0;border-radius:100px;background:var(--yellow);font-family:inherit;font-size:var(--fs-body-lg);font-weight:600;color:#000;cursor:pointer;transition:transform .3s cubic-bezier(.16,1,.3,1)}
+.project-card__detail-btn span{transition:transform .3s cubic-bezier(.16,1,.3,1)}
+.project-card:hover .project-card__detail-btn span{transform:translateX(4px)}
+.project-card__detail-btn:hover{transform:scale(1.06)}
+
+/* ---------- Project detail modal ---------- */
+.project-modal-overlay{position:fixed;inset:0;z-index:500;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(20,10,40,.5);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.project-modal-overlay.is-open{display:flex}
+body.modal-open{overflow:hidden}
+.project-modal{position:relative;width:100%;max-width:1200px;max-height:88vh;overflow-y:auto;padding:52px 60px;border-radius:24px;background:#fff}
+.project-modal__close{position:absolute;top:24px;right:28px;width:40px;height:40px;border:0;border-radius:50%;background:#f2f0f7;font-size:20px;line-height:1;color:#3d3445;cursor:pointer;transition:transform .3s cubic-bezier(.16,1,.3,1),background .3s ease}
+.project-modal__close:hover{transform:scale(1.12);background:#e7e3f0}
+.project-modal__eyebrow{margin:0 0 8px;color:var(--muted);font-size:var(--fs-body-sm);font-weight:600;letter-spacing:.05em;text-align:center}
+.project-modal__title{margin:0 auto 24px;font-size:36px;font-weight:700;text-align:center}
+.project-modal__links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.project-modal__link-btn{display:inline-flex;align-items:center;padding:12px 22px;border:1.5px solid #000;border-radius:100px;font-size:var(--fs-body-md);font-weight:600;color:#000}
+.project-modal__link-btn.is-active{border-color:var(--yellow);background:var(--yellow)}
+.project-modal__divider{height:1px;margin:28px 0 32px;background:rgba(0,0,0,.12)}
+.project-modal__body{display:flex;gap:40px}
+.project-modal__media{position:relative;flex:0 0 46%;align-self:center;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000}
+.project-modal__media img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover}
+.project-modal__media video{position:absolute;inset:0;display:none;width:100%;height:100%;object-fit:cover}
+.project-modal__play{position:absolute;top:50%;left:50%;z-index:1;width:72px;height:72px;transform:translate(-50%,-50%);border:1.5px solid rgba(255,255,255,.7);border-radius:50%;background:rgba(255,255,255,.22);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);cursor:pointer;transition:transform .3s cubic-bezier(.16,1,.3,1),background .3s ease}
+.project-modal__play::before{content:'';position:absolute;inset:-16px;border:1.5px solid rgba(255,255,255,.35);border-radius:50%}
+.project-modal__play::after{content:'';position:absolute;top:50%;left:54%;width:0;height:0;transform:translate(-50%,-50%);border-style:solid;border-width:11px 0 11px 18px;border-color:transparent transparent transparent #fff}
+.project-modal__media:hover .project-modal__play{transform:translate(-50%,-50%) scale(1.08);background:rgba(255,255,255,.34)}
+.project-modal__media.is-playing .project-modal__play,.project-modal__media.is-playing img{display:none}
+.project-modal__media.is-playing video{display:block}
+.project-modal__info{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+.project-modal__row{display:flex;gap:20px;align-items:flex-start}
+.project-modal__key{flex:0 0 112px;margin-top:2px;font-size:var(--fs-body-md);font-weight:700;white-space:nowrap}
+.project-modal__val{margin:0;font-size:var(--fs-body-md);font-weight:400;color:#444;line-height:1.6}
+ul.project-modal__val{padding-left:20px}
+ul.project-modal__val li{margin-bottom:4px}
+ul.project-modal__val li:last-child{margin-bottom:0}
+.project-modal__stack{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.project-modal__stack-tag{padding:8px 18px;border-radius:100px;background:#f2effc;font-size:var(--fs-body-sm);font-weight:500;color:#3d3445}
+.project-ring{position:absolute;z-index:0;width:90px;height:90px;opacity:.5;pointer-events:none}
+
+/* ---------- Values (work-method + strengths merged into one list) ---------- */
+.values{min-height:580px}
+.values__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:34px;margin-top:68px}
+.values article{min-height:280px;padding:0 0 0 32px;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.values article:first-child{padding-left:0}
+.values article:not(:first-child){border-left:1px solid #e3ddf0}
+.values article:hover{transform:translateY(-6px)}
+.values__grid b{display:block;font-size:var(--fs-h3);font-weight:700;color:#d1477e}
+.values article:nth-child(2) b{color:#3f66c9}
+.values article:nth-child(3) b{color:#c9971f}
+.values article:nth-child(4) b{color:#2f9e5c}
+.values__grid h3{margin:49px 0 31px;font-size:var(--fs-h3);font-weight:600;line-height:32px}
+.values__grid p{margin:0;color:#444;font-size:var(--fs-values-desc);line-height:1.4;font-weight:400}
+
+/* ---------- Skills ---------- */
+.skills{position:relative;min-height:740px;background:#fff}
+.skills .eyebrow{font-weight:400;letter-spacing:0;color:rgba(0,0,0,.65)}
+.skills__intro{position:absolute;max-width:570px;right:max(32px,calc((100vw - 1564px)/2));top:130px;color:rgba(0,0,0,.7);font-size:var(--fs-body-sm);line-height:1.5;font-weight:400}
+.skills__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px 30px;margin-top:52px}
+.skill-card{position:relative;height:200px;padding:30px 26px;border-radius:6px;overflow:hidden}
+.skill-card h3{margin:0;font-size:var(--fs-button-lg);font-weight:600}
+.skill-card p{margin:22px 0 0;font-size:var(--fs-body-xs);font-weight:400;opacity:.58}
+.skill-card__icon{position:absolute;left:26px;top:124px;width:50px;height:50px;object-fit:cover}
+.skill-card__icons{position:absolute;left:26px;top:124px;display:flex}
+.skill-card__icons img{width:50px;height:50px;object-fit:cover}
+.donut{position:absolute;right:26px;bottom:26px;width:72px;height:72px}
+.donut svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.donut__track{fill:none;stroke:#000;stroke-opacity:.68}
+.donut__progress{fill:none;stroke:#0d99ff;stroke-linecap:butt;stroke-dasharray:334.99;stroke-dashoffset:334.99;transition:stroke-dashoffset 1.4s cubic-bezier(.16,.84,.44,1)}
+.donut__track,.donut__progress{stroke-width:17.36}
+.donut span{position:absolute;inset:0;display:grid;place-items:center;font-size:var(--fs-body-xs);font-weight:600}
+@media(prefers-reduced-motion:reduce){.donut__progress{transition:none}}
+
+/* ---------- Section divider (retired — serpentine edges separate sections now) ---------- */
+.section-divider{display:none}
+
+/* ---------- CTA ---------- */
+.cta{position:relative;min-height:594px;padding:90px 32px;overflow:hidden;text-align:center;background:var(--lavender)}
+.cta__blob{position:absolute;z-index:0;left:-21%;top:-51%;width:52%;pointer-events:none}
+.cta>*:not(.cta__blob){position:relative;z-index:1}
+.cta h2{font-size:var(--fs-cta-h2)}
+.cta>p{margin:18px 0 34px;color:#595959;font-size:var(--fs-body-lg)}
+.cta>.button{margin:auto;width:280px;height:70px;border-radius:35px;background:#fff;color:#000;box-shadow:0 8px 20px -4px rgba(0,0,0,.12)}
+.contact-cards{display:flex;justify-content:center;gap:32px;margin-top:56px}
+.contact-cards a{display:flex;align-items:center;justify-content:center;gap:14px;width:320px;height:96px;padding:0 32px;border-radius:32px;background:#fff;box-shadow:0 10px 24px -6px rgba(0,0,0,.16);transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s cubic-bezier(.16,1,.3,1)}
+.contact-cards a:hover{transform:translateY(-5px) scale(1.03);box-shadow:0 20px 36px -10px rgba(0,0,0,.3)}
+.contact-cards a img{width:20px;height:20px;flex-shrink:0}
+.contact-cards a div{display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center}
+.contact-cards b{font-size:var(--fs-body-xs);font-weight:600;letter-spacing:.08em;color:#737373}
+.contact-cards span{font-size:var(--fs-body-sm);font-weight:500;color:#000}
+.contact-cards a.mail{background:#000;box-shadow:0 10px 24px -6px rgba(0,0,0,.32)}
+.contact-cards a.mail:hover{box-shadow:0 20px 36px -10px rgba(0,0,0,.5)}
+.contact-cards a.mail b{color:#d9d9d9}
+.contact-cards a.mail span{color:#fff}
+
+/* ============================================================
+   ONE page-wide flowing ribbon ("지렁이")
+   ------------------------------------------------------------
+   The whole page is one canvas. A full-height SVG sits behind ALL
+   content and paints wide colour bands. Every boundary is the SAME
+   smooth 1.5-hump wave, so the eye follows one continuous line, and
+   every band also drifts diagonally (left edge vs right edge differ
+   by ~280u) with the drift direction flipping band to band — that
+   is what makes the whole thing read as a lazy diagonal S instead
+   of stacked smiles. A vertical-only Gaussian blur feathers each
+   colour change so no boundary is a hard line.
+   The colour changes are NOT tied to section edges — every content
+   section is transparent and rides on top of the flow.
+   Colour order, top → bottom:
+   purple → near-white → lavender → near-white → lavender → light-lavender.
+   Each boundary is ONE clean S: d='M0 0H1000V{R} C667 {R} 333 {L} 0 {L} Z'
+   where L = left-edge height, R = right-edge height. The control
+   points sit exactly on the end heights, so the curve meets both
+   page edges with a flat tangent — no scoop or puddle at the edge.
+   L vs R alternate which side is lower band-to-band → woven S.
+   blur amount = feGaussianBlur stdDeviation second value.
+   ============================================================ */
+main::before{
+  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:#ece4fc url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 3600' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='s'%3E%3CfeGaussianBlur stdDeviation='0 7'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='1000' height='3600' fill='%23ece4fc'/%3E%3Cg filter='url(%23s)'%3E%3Cpath fill='%23e4d9fb' d='M0 0H1000V3280C667 3280 333 3020 0 3020Z'/%3E%3Cpath fill='%23f4eefe' d='M0 0H1000V2320C667 2320 333 2580 0 2580Z'/%3E%3Cpath fill='%23e4d9fb' d='M0 0H1000V1980C667 1980 333 1720 0 1720Z'/%3E%3Cpath fill='%23f4eefe' d='M0 0H1000V920C667 920 333 1180 0 1180Z'/%3E%3Cpath fill='%23c4b0f5' d='M0 0H1000V640C667 640 333 380 0 380Z'/%3E%3C/g%3E%3C/svg%3E") top center/100% 100% no-repeat;
+}
+main>section{position:relative;z-index:1}
+.hero,.intro,.background,.projects,.values,.skills,.cta{background:transparent}
+
+@media(max-width:660px){
+  /* Phones are ~1:16, so preserveAspectRatio=none stretches every curve
+     ~6x taller than wide — the desktop slopes (±260u) become near-vertical
+     slashes. Same SVG, but far gentler slopes (±90u) so after the stretch
+     they still read as a soft diagonal wave rather than a diagonal line. */
+  main::before{background:#ece4fc url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 3600' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='s'%3E%3CfeGaussianBlur stdDeviation='0 7'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='1000' height='3600' fill='%23ece4fc'/%3E%3Cg filter='url(%23s)'%3E%3Cpath fill='%23e4d9fb' d='M0 0H1000V3180C667 3180 333 3090 0 3090Z'/%3E%3Cpath fill='%23f4eefe' d='M0 0H1000V2380C667 2380 333 2470 0 2470Z'/%3E%3Cpath fill='%23e4d9fb' d='M0 0H1000V2000C667 2000 333 1910 0 1910Z'/%3E%3Cpath fill='%23f4eefe' d='M0 0H1000V1160C667 1160 333 1250 0 1250Z'/%3E%3Cpath fill='%23c4b0f5' d='M0 0H1000V700C667 700 333 610 0 610Z'/%3E%3C/g%3E%3C/svg%3E") top center/100% 100% no-repeat}
+}
+
+/* ---------- Footer ---------- */
+footer{padding:60px max(32px,calc((100vw - 1564px)/2));background:var(--lavender)}
+footer p{margin:0;font-size:var(--fs-body-md);font-weight:400;opacity:.82}
+footer .footer__divider{height:1px;background:#000;opacity:.32;margin:28px 0}
+footer .footer__bottom{display:flex;justify-content:space-between;align-items:center}
+footer .footer__copy{margin:0;font-size:var(--fs-body-xs);font-weight:400;opacity:.72}
+footer .footer__top{display:inline-block;transform-origin:right center;margin:0;font-size:var(--fs-body-sm);font-weight:400;opacity:.9;transition:transform .3s cubic-bezier(.16,1,.3,1),opacity .3s ease}
+footer .footer__top:hover{transform:scale(1.08);opacity:1}
+
+/* ---------- Scroll reveal ---------- */
+/* No will-change here on purpose — leaving that hint on after the transition finishes
+   keeps the element on its own compositing layer forever, which reads as permanently
+   blurry text on Windows displays with fractional (125%/150%) scaling. */
+.reveal{opacity:0;transform:translateY(42px);transition:opacity .8s cubic-bezier(.16,.84,.44,1),transform .8s cubic-bezier(.16,.84,.44,1)}
+.reveal.is-visible{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{transition:none;opacity:1;transform:none}}
+
+/* Apple-style scale entrance, used for the Values cards. No filter:blur here —
+   animating blur() to 0 leaves text on a softened compositing layer in Chrome/WebKit
+   even after the transition ends, which read as permanently blurry text. */
+.values article.reveal{opacity:0;transform:translateY(40px) scale(.92);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.values article.reveal.is-visible{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.values article.reveal{transition:none}}
+.background__grid>.reveal:nth-child(2){transition-delay:.06s}
+.background__grid>.reveal:nth-child(3){transition-delay:.12s}
+.background__grid>.reveal:nth-child(4){transition-delay:.18s}
+.values__grid>.reveal:nth-child(2){transition-delay:.1s}
+.values__grid>.reveal:nth-child(3){transition-delay:.2s}
+.values__grid>.reveal:nth-child(4){transition-delay:.3s}
+.skills__grid>.reveal:nth-child(2){transition-delay:.05s}
+.skills__grid>.reveal:nth-child(3){transition-delay:.1s}
+.skills__grid>.reveal:nth-child(4){transition-delay:.15s}
+.skills__grid>.reveal:nth-child(5){transition-delay:.2s}
+.skills__grid>.reveal:nth-child(6){transition-delay:.25s}
+.skills__grid>.reveal:nth-child(7){transition-delay:.3s}
+.skills__grid>.reveal:nth-child(8){transition-delay:.35s}
+
+@media(max-width:900px){
+  .site-header{width:calc(100% - 32px);top:10px;height:50px;padding:6px 16px}
+  .site-header nav{display:none}
+  .hero{min-height:880px}
+  .hero__copy{width:100%;padding:160px 28px 0}
+  .hero h1{font-size:48px}
+  .hero__name{font-size:22px}
+  .hero__portrait{top:auto;right:-25%;bottom:0;width:78vw;opacity:.9}
+  .hero__about,.star--bottom{display:none}
+  .hero__actions{gap:12px;margin-top:80px}
+  .button{width:170px;height:52px;font-size:15px}
+  .hero__keywords{margin-top:52px;font-size:15px}
+  .project-count{right:18px;bottom:22px;width:auto;min-height:0;padding:12px 20px}
+  .project-count strong{font-size:34px}
+  .project-count span{font-size:12px}
+  .section{padding:70px 28px}
+  .section h2,.projects h2{font-size:34px}
+  .intro>p:last-child{font-size:17px}
+  .background__grid,.values__grid,.skills__grid{grid-template-columns:1fr}
+  .project-list{--card-margin:20px;--card-top-offset:10px;--card-sticky-top:72px}
+  .background__blob{display:none}
+  .project-card__face{padding:20px 22px}
+  .project-card__title{font-size:24px}
+  .project-card__face-meta{flex-wrap:wrap}
+  .project-modal{padding:32px 24px;max-height:92vh}
+  .project-modal__title{margin-right:44px;font-size:28px}
+  .project-modal__body{flex-direction:column;gap:24px}
+  .project-modal__media{flex:none;align-self:stretch;width:100%;aspect-ratio:16/9}
+  .project-modal__key{flex-basis:96px;white-space:normal}
+  .projects__blob{display:none}
+  .skills__intro{position:static;margin:18px 0}
+  .skills__grid{grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin-top:32px}
+  .skill-card,.skill-card.skill-card--sm{height:auto!important;min-width:0;padding:16px!important;border-radius:12px!important;display:grid!important;grid-template-columns:1fr auto!important;column-gap:8px;row-gap:8px;align-items:center}
+  .skill-card h3{grid-column:1;grid-row:1;font-size:16px;white-space:normal}
+  .skill-card p{grid-column:1;grid-row:2;min-width:0;margin:0!important;font-size:13px;opacity:1;color:#8c8c8c;white-space:normal}
+  .skill-card__icon{position:static!important;grid-column:2;grid-row:1;align-self:start;width:35px!important;height:35px!important;left:auto!important;top:auto!important;justify-self:end}
+  .skill-card__icons{position:static!important;grid-column:2;grid-row:1;align-self:start;left:auto!important;top:auto!important;justify-self:end}
+  .skill-card__icons img{width:20px!important;height:20px!important;margin-left:-7px}
+  .skill-card__icons img:first-child{margin-left:0}
+  .donut{position:relative!important;grid-column:2;grid-row:2;width:clamp(44px,12vw,58px)!important;height:clamp(44px,12vw,58px)!important;right:auto!important;top:auto!important;bottom:auto!important;justify-self:end}
+  .donut span{font-size:clamp(10px,3vw,13px)}
+  .cta{padding:72px 28px}
+  .cta h2{font-size:38px}
+  .cta>.button{width:100%;max-width:280px}
+  .contact-cards{flex-direction:column;align-items:center;gap:12px}
+  .contact-cards a{width:100%;max-width:320px}
+  footer .footer__bottom{flex-direction:column;align-items:flex-start;gap:12px}
+}
+
+/* ================================================================
+   Figma "포트폴리오 랜딩 — 660" mobile spec
+   Viewport 660px / content container 600px (30px side padding)
+   ================================================================ */
+@media(max-width:660px){
+  /* ---- Header: keep the desktop raised-glass pill (blur + border + inset
+     highlight). Switch from fixed to sticky so it keeps its slot in the flow —
+     no overlap with the tight mobile hero — but still floats to the top on
+     scroll like desktop.
+     On mobile the pill sits on a flat lavender field (no hero art behind it),
+     so the desktop treatment showed two artefacts: (1) the heavy 28px drop
+     shadow read as a dark purple rectangle, and (2) `saturate(1.4)` in the
+     backdrop-filter bled past the rounded corners on the composited sticky
+     layer as a purple square. Drop the saturate, keep a plain blur, and use a
+     lighter shadow + clip to the pill shape so neither can show. `overflow:hidden`
+     alone does NOT clip the backdrop-filter on the promoted sticky layer, so it
+     still paints a square-cornered rectangle behind the pill — `clip-path` with a
+     rounded inset clips it away. The glass (blur + tint + border + highlight) stays. ---- */
+  .site-header{position:sticky;top:16px;left:auto;transform:none;width:auto;height:auto;min-height:54px;margin:16px 14px 0;padding:10px clamp(12px,3.5vw,20px);overflow:hidden;clip-path:inset(0 round 999px);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 6px 16px rgba(30,20,60,.10),inset 0 1px 0 rgba(255,255,255,.5)}
+  .site-header .logo{font-size:15px}
+  .site-header nav{display:flex;align-items:center;gap:clamp(8px,3vw,14px);font-weight:600;font-size:14px}
+  .site-header nav a:first-child{display:none}
+  /* Desktop shows a yellow CONTACT pill (.contact-link). That element is hidden
+     on mobile, so give the nav's own CONTACT link the same pill treatment here
+     — otherwise mobile loses the coloured CTA the desktop header has. */
+  .site-header nav a[href="#contact"]{padding:7px clamp(10px,3vw,14px);border-radius:999px;background:var(--yellow);color:#000;font-weight:700}
+  .contact-link{display:none}
+  [id]{scroll-margin-top:16px}
+
+  /* ---- Hero: single flowing column matching the 660 Figma spec ----
+     order (top → bottom): star · heading · name · keywords · portrait · counter · CTA buttons
+     Spacing is done with explicit margins (gap:0) because the Figma frame nests
+     three sub-groups with 16 / 24 / 32px internal rhythm that one flex gap can't express. */
+  .hero{min-height:0;display:flex;flex-direction:column;gap:0;padding:40px 30px 48px}
+  .hero__copy{display:contents}                 /* unwrap so heading/name/keywords/CTA become hero flex items */
+  .hero h1,.hero__name,.hero__keywords{color:#262626}   /* copy no longer boxes them, so set text colour directly */
+  .star--top{position:static;width:48px;margin:0 0 32px;align-self:flex-start}
+  .hero h1{font-size:44px;line-height:56px}
+  .hero__name{margin-top:16px;font-size:20px;line-height:28px}
+  .hero__keywords{margin-top:16px;margin-bottom:0;font-size:14px}
+  .hero__portrait{position:static;top:auto;right:auto;bottom:auto;display:block;width:min(320px,100%);height:auto;aspect-ratio:4/5;margin:32px auto 0;opacity:1;border-radius:24px}
+  .project-count{position:static;right:auto;bottom:auto;width:auto;height:auto;min-height:0;margin:24px auto 0;padding:12px 22px}
+  .hero__actions{order:1;gap:12px;margin-top:32px;width:100%}
+  .hero__actions .button{flex:1;width:auto;height:auto;padding:16px 24px;font-size:18px}
+  .project-count strong{font-size:34px}
+  .project-count span{margin-left:0;font-size:14px}
+  .project-count__icon{display:block;width:24px;height:24px;margin-left:8px}
+
+  /* ---- Shared section rhythm ---- */
+  /* Serpentine discs off on phones: projects switches to overflow:visible below,
+     which would let the huge disc escape. Flat colour blocks instead. */
+  .hero::after,.intro::after,.background::after,.projects::after,.values::after,.skills::after{display:none}
+  .section{padding:64px 30px}
+  .intro,.background,.projects,.values,.skills{padding-bottom:64px}
+  .eyebrow{font-size:14px}
+  .section h2,.projects h2{font-size:32px;line-height:42px}
+
+  /* ---- Intro ---- */
+  .intro{min-height:0}
+  .intro>p:last-child{font-size:18px;line-height:30px}
+
+  /* ---- Background (인적사항 · 경력사항 row, then 학력, then 자격) ---- */
+  .background__grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);row-gap:40px;column-gap:12px;margin-top:28px}
+  .background__grid>article{min-width:0}
+  .background__grid>article:nth-child(1){order:1}
+  .background__grid>article:nth-child(4){order:2}
+  .background__grid>article:nth-child(2){order:3;grid-column:1/-1}
+  .background__grid>article:nth-child(3){order:4;grid-column:1/-1}
+  .background__grid h3{font-size:20px;margin-bottom:16px}
+  .background__grid .divider{margin-bottom:16px}
+  .info-rows div{margin:12px 0;gap:8px}
+  .info-rows dt{flex:0 0 auto;font-size:14px}
+  .info-rows dd{min-width:0;font-size:15px;white-space:nowrap;overflow-wrap:normal}
+  .entry-rows dt{font-size:16px}
+  .entry-rows dd{font-size:14px}
+  .entry-cols{min-width:0}
+  .entry-cols .entry-rows dt{font-size:15px}
+  .entry-cols .entry-rows dd{font-size:13px}
+  .triple-dots{display:none}
+
+  /* ---- Projects: same sticky card-stack as desktop, just retuned for phones.
+     The stack (sticky .card + .card__content scale) must behave identically at
+     every breakpoint, so the mobile-only flat-list overrides are NOT applied
+     here — only sizing tweaks. overflow:clip keeps position:sticky alive while
+     still clipping the decorative blob. */
+  .projects{overflow:clip}
+  .projects__divider{display:none}
+  .projects .eyebrow{margin-bottom:12px}
+  .project-list{--card-sticky-top:64px;max-width:none;margin-top:40px}
+  .project-card{background:#fff}
+  /* On phones the card is portrait, so a flex:1 media box would squeeze the
+     landscape poster and object-fit:cover would crop the baked-in title text.
+     Pin the media to the poster's own ratio (850x464) so the whole frame — and
+     all its text — stays visible, then let the white face fill the rest. */
+  .project-card__media{flex:none;aspect-ratio:850/464}
+  .project-card__thumb--empty{background:#f5f5f5;color:#b3b3b3;font-size:14px}
+  .project-card__face{padding:20px}
+  .project-card__face-head{gap:8px}
+  .project-card__num{font-size:16px}
+  .project-card__tag{font-size:14px}
+  .project-card__title{margin:4px 0 0;font-size:24px}
+  .project-card__face-meta{margin-top:16px;gap:12px}
+  .project-card__period{font-size:15px;min-width:0}
+  .project-card__detail-btn{padding:13px 22px;font-size:15px}
+
+  /* ---- Project detail modal: full-width video preview + tighter text ---- */
+  .project-modal{padding:28px 20px}
+  /* Close button stays pinned to the top-right while the modal body scrolls */
+  .project-modal__close{position:sticky;float:right;top:4px;right:0;margin:-6px -6px -34px 0;z-index:5;box-shadow:0 2px 12px rgba(0,0,0,.16)}
+  .project-modal__eyebrow{font-size:12px;padding:0 34px}
+  .project-modal__title{margin:0 40px 20px;font-size:24px;line-height:1.3}
+  .project-modal__links{gap:8px}
+  .project-modal__link-btn{padding:10px 16px;font-size:14px}
+  .project-modal__divider{margin:20px 0 24px}
+  .project-modal__body{gap:20px}
+  .project-modal__media{border-radius:12px}
+  .project-modal__play{width:60px;height:60px}
+  .project-modal__play::after{border-width:9px 0 9px 15px}
+  .project-modal__info{gap:16px}
+  .project-modal__row{gap:10px}
+  .project-modal__key{flex:0 0 84px;font-size:14px}
+  .project-modal__val{font-size:14px;line-height:1.55}
+  ul.project-modal__val{padding-left:18px}
+  .project-modal__stack{justify-content:flex-start}
+  .project-modal__stack-tag{padding:7px 14px;font-size:12px}
+
+  /* ---- Values: single-column list with top dividers ---- */
+  .values{min-height:0}
+  .values__grid{grid-template-columns:1fr;gap:24px;margin-top:24px}
+  .values article{display:flex;flex-wrap:wrap;align-items:center;column-gap:16px;row-gap:12px;min-height:0;padding:0;border:0}
+  .values article:not(:first-child)::before{content:'';flex:1 1 100%;order:-1;height:1px;background:#e3ddf0}
+  .values__grid b{font-size:24px}
+  .values__grid h3{flex:1 1 auto;margin:0;font-size:20px;line-height:normal}
+  .values__grid p{flex:1 1 100%;font-size:15px;line-height:22px}
+
+  /* ---- Skills: compact 2-col grid ---- */
+  .skills{min-height:0}
+  .skills__intro{position:static;margin:0;max-width:none;font-size:16px;line-height:24px;color:#666}
+  .skills__grid{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))!important;gap:12px!important;margin-top:16px}
+  .skill-card,.skill-card.skill-card--sm{height:auto!important;min-width:0;padding:16px!important;border-radius:12px!important;display:grid!important;grid-template-columns:1fr auto!important;column-gap:8px;row-gap:8px;align-items:center}
+  .skill-card h3{grid-column:1;grid-row:1;font-size:16px;white-space:normal}
+  .skill-card p{grid-column:1;grid-row:2;min-width:0;margin:0!important;font-size:13px;opacity:1;color:#8c8c8c;white-space:normal}
+  .skill-card__icon{position:static!important;grid-column:2;grid-row:1;align-self:start;width:35px!important;height:35px!important;left:auto!important;top:auto!important;justify-self:end}
+  .skill-card__icons{position:static!important;grid-column:2;grid-row:1;align-self:start;left:auto!important;top:auto!important;justify-self:end}
+  .skill-card__icons img{width:20px!important;height:20px!important;margin-left:-7px}
+  .skill-card__icons img:first-child{margin-left:0}
+  .donut{position:relative!important;grid-column:2;grid-row:2;width:clamp(44px,12vw,58px)!important;height:clamp(44px,12vw,58px)!important;right:auto!important;top:auto!important;bottom:auto!important;justify-self:end}
+  .donut span{font-size:clamp(10px,3vw,13px)}
+
+  /* ---- CTA ---- */
+  .cta{min-height:0;padding:64px 32px;gap:28px}
+  .cta h2{font-size:36px;line-height:46px}
+  .cta>p{margin:0 0 26px;font-size:16px;line-height:24px}
+  .cta>.button{width:100%;height:auto;max-width:440px;margin:0 auto;padding:17px 32px;border-radius:16px;box-shadow:0 8px 20px -6px rgba(0,0,0,.14)}
+  .contact-cards{flex-direction:row;gap:14px;margin:36px auto 8px;max-width:440px;width:100%}
+  .contact-cards a{width:auto;max-width:none;flex:1;min-width:0;height:auto;min-height:0;padding:13px 12px;border-radius:14px;gap:8px}
+  .contact-cards a img{display:none}
+  .contact-cards a div{min-width:0;gap:4px}
+  .contact-cards b{font-size:10px}
+  .contact-cards span{min-width:0;font-size:11px;letter-spacing:-.02em;overflow-wrap:anywhere}
+  .contact-cards a.mail{flex:1.3}
+
+  /* ---- Footer ---- */
+  footer{display:flex;flex-direction:column;gap:16px;padding:40px 30px}
+  footer p{font-size:14px}
+  footer .footer__divider{margin:0}
+  footer .footer__bottom{flex-direction:row;align-items:center;gap:0}
+  footer .footer__copy{font-size:12px}
+  footer .footer__top{font-size:12px}
+}
+
+/* Very narrow phones: the 인적사항/경력사항 columns get too tight for the
+   email address on one line, so allow it to wrap again as a last resort. */
+@media(max-width:520px){
+  .info-rows dd{white-space:normal;overflow-wrap:anywhere}
+}

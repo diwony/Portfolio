@@ -1,0 +1,10 @@
+# 개인 작업 파일 / 도구 설정
+/jobstack/
+/스킬/
+/.claude/
+/.codex/
+
+# OS / 에디터
+.DS_Store
+Thumbs.db
+*.log
