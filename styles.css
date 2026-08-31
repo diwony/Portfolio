@@ -69,12 +69,16 @@ img{max-width:100%}
 @media(prefers-reduced-motion:reduce){.star{animation:none}}
 /* The stars and the "ABOUT" tag are placed as a % of the hero box, which only
    clears the copy while the centred container still has an outer margin
-   (viewport ≳ 1800px). Below that the margin collapses to 32px and they drift
-   onto the H1 / name line, so: park star--top in the band between the header
-   and the H1, and drop the decorations that have no room beside the copy
-   (star--bottom returns above 1400px, the ABOUT tag above 1550px). */
+   (viewport ≳ 1800px). Below that the margin collapses to 32px: the hero copy's
+   top padding is already pinned at its 84px minimum (flush under the header) and
+   the h1's left edge reaches x≈32px, so there is neither a vertical band above
+   the h1 nor horizontal room beside it for an absolute star. Rather than let it
+   sit on top of the heading, drop it through this range — the same as
+   .hero__about and .star--bottom. It comes back as an in-flow element (above the
+   heading, position:static) at 660px, and as the absolute % placement above
+   1800px. (star--bottom returns above 1400px, the ABOUT tag above 1550px.) */
 @media(max-width:1800px){
-  .star--top{top:clamp(84px,6vw,116px);left:clamp(16px,2vw,40px);width:clamp(46px,4vw,64px)}
+  .star--top{display:none}
 }
 @media(max-width:1550px){
   .hero__about{display:none}
@@ -430,7 +434,7 @@ footer .footer__top:hover{transform:scale(1.08);opacity:1}
   .hero{min-height:0;display:flex;flex-direction:column;gap:0;padding:40px 30px 48px}
   .hero__copy{display:contents}                 /* unwrap so heading/name/keywords/CTA become hero flex items */
   .hero h1,.hero__name{color:#fff}   /* copy no longer boxes them, so set text colour directly (user: keep heading + name white on mobile too; keywords stay dark like desktop) */
-  .star--top{position:static;width:48px;margin:0 0 32px;align-self:flex-start}
+  .star--top{display:block;position:static;width:48px;margin:0 0 32px;align-self:flex-start}
   .hero h1{font-size:44px;line-height:56px}
   .hero__name{margin-top:16px;font-size:20px;line-height:28px}
   .hero__keywords{margin-top:16px;margin-bottom:0;font-size:14px;color:#262626}
