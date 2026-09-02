@@ -181,7 +181,7 @@ body.modal-open{overflow:hidden}
 .project-modal__eyebrow{margin:0 0 8px;color:var(--muted);font-size:var(--fs-body-sm);font-weight:600;letter-spacing:.05em;text-align:center}
 .project-modal__title{margin:0 auto 24px;font-size:36px;font-weight:700;text-align:center}
 .project-modal__links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
-.project-modal__link-btn{display:inline-flex;align-items:center;padding:12px 22px;border:1.5px solid #000;border-radius:100px;font-size:var(--fs-body-md);font-weight:600;color:#000}
+.project-modal__link-btn{display:inline-flex;align-items:center;padding:12px 22px;border:2.5px solid #000;border-radius:100px;font-size:var(--fs-body-md);font-weight:600;color:#000}
 .project-modal__link-btn.is-active{border-color:var(--yellow);background:var(--yellow)}
 .project-modal__divider{height:1px;margin:28px 0 32px;background:rgba(0,0,0,.12)}
 .project-modal__body{display:flex;gap:40px}
