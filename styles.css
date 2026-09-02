@@ -47,7 +47,7 @@ img{max-width:100%}
 .hero__background,.hero__blob,.background__blob,.projects__blob,.project-ring,.cta__blob,.triple-dots{display:none!important}
 .hero__background{position:absolute;z-index:-3;width:100%;height:100%;object-fit:cover;inset:0}
 .hero__blob{position:absolute;z-index:-2;top:17%;left:34%;width:clamp(1000px,88vw,1700px)}
-.hero__copy{position:relative;z-index:2;width:min(950px,62vw);padding:clamp(84px,4.6vw,100px) 0 0 max(32px,calc((100vw - 1564px)/2));color:#fff}
+.hero__copy{position:relative;z-index:2;width:min(950px,62vw);padding:clamp(160px,12vw,240px) 0 0 max(32px,calc((100vw - 1564px)/2));color:#fff}
 .hero h1{margin:0;font-size:var(--fs-h1);font-weight:700;line-height:1.15;letter-spacing:-.03em;text-transform:capitalize}
 .hero__name{margin:6px 0 0;font-size:var(--fs-hero-name);font-weight:500;letter-spacing:.02em}
 .hero__actions{display:flex;gap:63px;margin-top:clamp(72px,11.4vw,219px)}
@@ -61,31 +61,15 @@ img{max-width:100%}
 .hero__keywords{margin-top:80px;font-size:min(var(--fs-hero-keywords),2.7vw);font-weight:600;color:#2b2350;white-space:nowrap}
 .hero__about{position:absolute;z-index:2;top:52%;left:41%;font-size:var(--fs-body-lg);font-weight:600;letter-spacing:.08em;text-transform:capitalize}
 .hero__about i{display:block;width:40px;height:2px;background:#000;transform:translateY(-16px)}
-.hero__portrait{position:absolute;z-index:1;top:17.5%;right:6.7%;width:min(36.7vw,704px);height:auto}
-.star{position:absolute;z-index:2;animation:star-twinkle 5.5s ease-in-out infinite}
-.star--top{top:15.3%;left:1.5%;width:82px;animation-delay:0s}
-.star--bottom{top:59%;left:43%;width:75px;animation-delay:2.4s}
-@keyframes star-twinkle{0%,68%,100%{transform:scale(1)}82%{transform:scale(1.06)}92%{transform:scale(.95)}}
-@media(prefers-reduced-motion:reduce){.star{animation:none}}
-/* Above 1800px the % star sits in the outer margin of the centred hero copy.
-   Below that the margin would collapse to 32px and the star would land on the
-   heading — so instead of dropping the star, we hold a left gutter for it:
-   hero__copy keeps a left padding equal to the centring margin at 1800px
-   (118px) that eases to ~92px as the viewport narrows, and star--top stays
-   absolutely placed inside that gutter, gliding up-left and shrinking with the
-   viewport. At the 1800px boundary the two placements coincide (top≈148 /
-   left≈27 / width≈80), so there is no position jump and no heading reflow; the
-   headline keeps its column throughout.
-   (star--bottom returns above 1400px, the ABOUT tag above 1550px.) */
+.hero__portrait{position:absolute;z-index:1;top:clamp(84px,4.6vw,100px);right:6.7%;width:min(36.7vw,704px);height:auto}
+/* Below 1800px the centring margin would collapse to 32px, so hold a left
+   gutter for the hero copy that eases from 118px to ~92px as the viewport
+   narrows — keeps the headline in its column without a position jump. */
 @media(max-width:1800px){
-  .star--top{top:clamp(84px,8.3vw,148px);left:clamp(16px,1.5vw,28px);width:clamp(46px,4.4vw,80px)}
   .hero__copy{padding-left:clamp(92px,calc((100vw - 1564px)/2),118px)}
 }
 @media(max-width:1550px){
   .hero__about{display:none}
-}
-@media(max-width:1400px){
-  .star--bottom{display:none}
 }
 .project-count{position:absolute;right:4.2%;bottom:7.5%;z-index:3;display:flex;align-items:center;gap:clamp(12px,1.6vw,22px);width:clamp(190px,15vw,224px);height:auto;min-height:clamp(74px,6vw,92px);padding:clamp(12px,1.4vw,16px) clamp(20px,2vw,30px);border-radius:999px;background:#fffb9e;box-shadow:0 12px 12px #0000001f}
 .project-count strong{font-size:clamp(32px,3vw,44px);line-height:1;font-weight:600}
@@ -358,7 +342,7 @@ footer .footer__top:hover{transform:scale(1.08);opacity:1}
   .hero h1{font-size:48px}
   .hero__name{font-size:22px}
   .hero__portrait{top:auto;right:-25%;bottom:0;width:78vw;opacity:.9}
-  .hero__about,.star--bottom{display:none}
+  .hero__about{display:none}
   .hero__actions{gap:12px;margin-top:80px}
   .button{width:170px;height:52px;font-size:15px}
   .hero__keywords{margin-top:52px;font-size:15px}
@@ -429,13 +413,12 @@ footer .footer__top:hover{transform:scale(1.08);opacity:1}
   [id]{scroll-margin-top:16px}
 
   /* ---- Hero: single flowing column matching the 660 Figma spec ----
-     order (top → bottom): star · heading · name · keywords · portrait · counter · CTA buttons
+     order (top → bottom): heading · name · keywords · portrait · counter · CTA buttons
      Spacing is done with explicit margins (gap:0) because the Figma frame nests
      three sub-groups with 16 / 24 / 32px internal rhythm that one flex gap can't express. */
   .hero{min-height:0;display:flex;flex-direction:column;gap:0;padding:40px 30px 48px}
   .hero__copy{display:contents}                 /* unwrap so heading/name/keywords/CTA become hero flex items */
   .hero h1,.hero__name{color:#fff}   /* copy no longer boxes them, so set text colour directly (user: keep heading + name white on mobile too; keywords stay dark like desktop) */
-  .star--top{display:block;position:static;width:48px;margin:0 0 32px;align-self:flex-start}
   .hero h1{font-size:44px;line-height:56px}
   .hero__name{margin-top:16px;font-size:20px;line-height:28px}
   .hero__keywords{margin-top:16px;margin-bottom:0;font-size:14px;color:#262626}
