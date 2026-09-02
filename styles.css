@@ -58,7 +58,15 @@ img{max-width:100%}
 .button:hover,.project-modal__link-btn:hover{transform:translateY(-5px) scale(1.06);box-shadow:0 16px 30px -10px rgba(0,0,0,.4)}
 .button:active,.project-modal__link-btn:active{transform:translateY(-2px) scale(1.02)}
 .contact-link{transition:transform .3s cubic-bezier(.16,1,.3,1)}
-.hero__keywords{margin-top:80px;font-size:min(var(--fs-hero-keywords),2.7vw);font-weight:600;color:#2b2350;white-space:nowrap}
+/* Full-bleed keyword ticker pinned near the hero's bottom edge, flowing the
+   width of the viewport (outside .hero__copy so the copy column can't cap it). */
+.hero__keywords{position:absolute;left:0;right:0;bottom:clamp(16px,1.8vw,32px);z-index:2;margin:0;font-size:min(var(--fs-hero-keywords),2.7vw);font-weight:600;color:#2b2350;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+.hero__keywords-track{display:flex;width:max-content;animation:hero-marquee 32s linear infinite}
+.hero__keywords:hover .hero__keywords-track{animation-play-state:paused}
+.hero__kw-group{display:flex;flex-shrink:0}
+.hero__kw-group b{font-weight:inherit;white-space:nowrap;letter-spacing:.02em}
+.hero__kw-group b::after{content:"·";padding:0 .7em;opacity:.55}
+@keyframes hero-marquee{to{transform:translateX(-50%)}}
 .hero__about{position:absolute;z-index:2;top:52%;left:41%;font-size:var(--fs-body-lg);font-weight:600;letter-spacing:.08em;text-transform:capitalize}
 .hero__about i{display:block;width:40px;height:2px;background:#000;transform:translateY(-16px)}
 .hero__portrait{position:absolute;z-index:1;top:clamp(84px,4.6vw,100px);right:6.7%;width:min(36.7vw,704px);height:auto}
@@ -71,7 +79,7 @@ img{max-width:100%}
 @media(max-width:1550px){
   .hero__about{display:none}
 }
-.project-count{position:absolute;right:4.2%;bottom:7.5%;z-index:3;display:flex;align-items:center;gap:clamp(12px,1.6vw,22px);width:clamp(190px,15vw,224px);height:auto;min-height:clamp(74px,6vw,92px);padding:clamp(12px,1.4vw,16px) clamp(20px,2vw,30px);border-radius:999px;background:#fffb9e;box-shadow:0 12px 12px #0000001f}
+.project-count{position:absolute;right:4.2%;bottom:11.5%;z-index:3;display:flex;align-items:center;gap:clamp(12px,1.6vw,22px);width:clamp(190px,15vw,224px);height:auto;min-height:clamp(74px,6vw,92px);padding:clamp(12px,1.4vw,16px) clamp(20px,2vw,30px);border-radius:999px;background:#fffb9e;box-shadow:0 12px 12px #0000001f}
 .project-count strong{font-size:clamp(32px,3vw,44px);line-height:1;font-weight:600}
 .project-count span{margin-left:auto;font-size:clamp(12px,0.95vw,14px);font-weight:600}
 .project-count__icon{display:none;flex-shrink:0;width:24px;height:24px}
@@ -81,6 +89,11 @@ img{max-width:100%}
 .hero__line:nth-child(2){transition-delay:.12s}
 .hero__line:nth-child(3){transition-delay:.24s}
 .hero__name{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.16,.84,.44,1) .38s,transform .7s cubic-bezier(.16,.84,.44,1) .38s}
+/* Per-character hero reveal: script.js splits .hero__line / .hero__name into
+   .hero__char spans, each carrying a --char-index for a staggered rise. */
+.hero__line.is-split,.hero__name.is-split{opacity:1;transform:none;transition:none}
+.hero__char{display:inline-block;white-space:pre;opacity:0;transform:translateY(.9em);transition:opacity .55s cubic-bezier(.16,.84,.44,1),transform .55s cubic-bezier(.16,.84,.44,1);transition-delay:calc(var(--char-index,0)*.028s)}
+.hero.is-loaded .hero__char{opacity:1;transform:none}
 .hero__portrait{opacity:0;transform:translateY(24px) scale(.97);transition:opacity .9s cubic-bezier(.16,.84,.44,1) .15s,transform .9s cubic-bezier(.16,.84,.44,1) .15s}
 .hero__actions{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.16,.84,.44,1) .5s,transform .7s cubic-bezier(.16,.84,.44,1) .5s}
 .hero__about{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.16,.84,.44,1) .55s,transform .7s cubic-bezier(.16,.84,.44,1) .55s}
@@ -89,7 +102,7 @@ img{max-width:100%}
 .hero.is-loaded .hero__line,.hero.is-loaded .hero__name,.hero.is-loaded .hero__actions,.hero.is-loaded .hero__about,.hero.is-loaded .hero__keywords{opacity:1;transform:none}
 .hero.is-loaded .hero__portrait{opacity:1;transform:none}
 .hero.is-loaded .project-count{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.hero__line,.hero__name,.hero__portrait,.hero__actions,.hero__about,.hero__keywords,.project-count{transition:none;opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.hero__line,.hero__name,.hero__char,.hero__portrait,.hero__actions,.hero__about,.hero__keywords,.project-count{transition:none;opacity:1;transform:none}.hero__keywords-track{animation:none}}
 
 /* ---------- Shared section rhythm ---------- */
 .section{position:relative;isolation:isolate;padding:96px max(32px,calc((100vw - 1564px)/2))}
@@ -345,7 +358,10 @@ footer .footer__top:hover{transform:scale(1.08);opacity:1}
   .hero__about{display:none}
   .hero__actions{gap:12px;margin-top:80px}
   .button{width:170px;height:52px;font-size:15px}
-  .hero__keywords{margin-top:52px;font-size:15px}
+  /* Below 900 the hero art bleeds off-canvas and the counter drops to the
+     corner — the full-bleed absolute ticker has nowhere clean to sit, so put it
+     back in the normal flow under the buttons. */
+  .hero__keywords{position:static;margin-top:52px;font-size:15px}
   .project-count{right:18px;bottom:22px;width:auto;min-height:0;padding:12px 20px}
   .project-count strong{font-size:34px}
   .project-count span{font-size:12px}
@@ -421,7 +437,7 @@ footer .footer__top:hover{transform:scale(1.08);opacity:1}
   .hero h1,.hero__name{color:#fff}   /* copy no longer boxes them, so set text colour directly (user: keep heading + name white on mobile too; keywords stay dark like desktop) */
   .hero h1{font-size:44px;line-height:56px}
   .hero__name{margin-top:16px;font-size:20px;line-height:28px}
-  .hero__keywords{margin-top:16px;margin-bottom:0;font-size:14px;color:#262626}
+  .hero__keywords{position:static;margin-top:16px;margin-bottom:0;font-size:14px;color:#262626}
   .hero__portrait{position:static;top:auto;right:auto;bottom:auto;display:block;width:min(320px,100%);height:auto;aspect-ratio:4/5;margin:32px auto 0;opacity:1;border-radius:24px}
   .project-count{position:static;right:auto;bottom:auto;width:auto;height:auto;min-height:0;margin:24px auto 0;padding:12px 22px}
   .hero__actions{order:1;gap:12px;margin-top:32px;width:100%}

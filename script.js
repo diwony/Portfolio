@@ -17,7 +17,7 @@
       video: './assets/project-01.mp4',
       links: [
         { label: 'GitHub View', href: '#' },
-        { label: '기획서 View', href: '#' },
+        { label: '기획서 View', href: 'https://drive.google.com/file/d/103mHgIx7HwE27wAM4Y9jEFAKXb405ouF/view?usp=sharing', plain: true },
         { label: '영상 보기', href: 'https://drive.google.com/file/d/1E7H-bXvBvGZLOeGdQftnWEwpQyWTVkxz/view?usp=sharing' }
       ]
     },
@@ -108,9 +108,10 @@
     }).join('');
 
     modal.querySelector('.project-modal__links').innerHTML = p.links.map(function (l) {
-      var isActive = l.href && l.href !== '#';
+      var hasLink = l.href && l.href !== '#';
+      var isActive = hasLink && !l.plain;
       return '<a class="project-modal__link-btn' + (isActive ? ' is-active' : '') + '" href="' + l.href + '"' +
-        (isActive ? ' target="_blank" rel="noopener noreferrer"' : '') + '>' + escapeHtml(l.label) + '</a>';
+        (hasLink ? ' target="_blank" rel="noopener noreferrer"' : '') + '>' + escapeHtml(l.label) + '</a>';
     }).join('');
 
     var mediaWrap = modal.querySelector('.project-modal__media');
@@ -260,6 +261,27 @@
   /* ---------- Hero intro reveal (fires once on load) ---------- */
   var hero = document.querySelector('.hero');
   if (hero) {
+    /* Split the headline lines and the name into per-character spans so each
+       letter can rise in a staggered sequence. The stagger index runs
+       continuously across all lines, so the effect flows without resetting. */
+    var splitCount = 0;
+    hero.querySelectorAll('.hero__line, .hero__name').forEach(function (el) {
+      var text = el.textContent;
+      var frag = document.createDocumentFragment();
+      for (var i = 0; i < text.length; i++) {
+        var span = document.createElement('span');
+        span.className = 'hero__char';
+        span.textContent = text[i];
+        span.setAttribute('aria-hidden', 'true');
+        span.style.setProperty('--char-index', splitCount++);
+        frag.appendChild(span);
+      }
+      el.setAttribute('aria-label', text);
+      el.textContent = '';
+      el.appendChild(frag);
+      el.classList.add('is-split');
+    });
+
     if (reduceMotion) {
       hero.classList.add('is-loaded');
     } else {
