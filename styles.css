@@ -139,7 +139,10 @@ img{max-width:100%}
    the copy column can't cap its width). margin-top:auto parks it at the
    bottom edge on tall viewports; on shorter ones it flows under the buttons.
    The track holds two identical groups and loops by translating -50%. */
-.hero__keywords{margin:auto 0 clamp(16px,1.8vw,32px);z-index:2;width:100%;font-size:clamp(15px,2.7vw,var(--fs-hero-keywords));font-weight:600;color:#2b2350;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+/* margin-top:auto parks the ticker at the hero's bottom on tall viewports, but
+   it collapses to 0 on shorter ones and the ticker crams against the buttons —
+   padding-top is a floor that auto can't eat, so the gap never fully closes. */
+.hero__keywords{margin:auto 0 clamp(16px,1.8vw,32px);padding-top:clamp(48px,6vw,72px);z-index:2;width:100%;font-size:clamp(15px,2.7vw,var(--fs-hero-keywords));font-weight:600;color:#2b2350;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
 .hero__keywords-track{display:flex;width:max-content;animation:hero-marquee 52s linear infinite}
 .hero__keywords:hover .hero__keywords-track{animation-play-state:paused}
 .hero__kw-group{display:flex;flex-shrink:0}
@@ -437,7 +440,10 @@ footer .footer__top:hover{transform:scale(1.08);opacity:1}
 
 @media(max-width:900px){
   .site-header{width:calc(100% - 32px);top:10px;height:50px;padding:6px 16px}
-  .site-header nav{display:none}
+  /* The 660–900 band used to hide the nav entirely (no hamburger to replace
+     it), so the GNB just vanished when the window narrowed past 900. Keep it
+     visible here — only tightened — and let the ≤660 block compact it further. */
+  .site-header nav{gap:16px;font-size:14px}
   /* ---- Hero: the single-column layout (from the 660 Figma spec) extended
      up to 900px. The old squished-desktop layout bled the portrait in from
      the right at 78vw, which collided with the buttons and the ticker
@@ -449,7 +455,9 @@ footer .footer__top:hover{transform:scale(1.08);opacity:1}
   .hero h1{font-size:clamp(44px,5.6vw,56px);line-height:1.2}
   .hero__name{margin-top:16px;font-size:clamp(20px,2.6vw,24px);line-height:1.35}
   .hero__about{display:none}
-  .hero__keywords{position:static;margin:20px 0 0;font-size:clamp(14px,2vw,17px);color:#262626}
+  /* Job-title marquee: on mobile it moves below the CTA buttons (order:2, after
+     .hero__actions' order:1) and runs full-bleed edge to edge as a band. */
+  .hero__keywords{order:2;position:static;margin:32px -30px 0;width:calc(100% + 60px);padding-top:0;font-size:clamp(14px,2vw,17px);color:#262626}
   .hero__portrait{position:static;inset:auto;display:block;width:clamp(320px,42vw,380px);height:auto;aspect-ratio:4/5;margin:36px auto 0;opacity:1;border-radius:24px}
   .hero__actions{order:1;gap:14px;margin-top:36px;width:100%}
   .hero__actions .button{flex:1;width:auto;height:auto;padding:16px 24px;font-size:clamp(15px,1.8vw,18px)}
@@ -511,30 +519,11 @@ footer .footer__top:hover{transform:scale(1.08);opacity:1}
      rounded inset clips it away. The glass (blur + tint + border + highlight) stays. ---- */
   .site-header{position:sticky;top:16px;left:auto;transform:none;width:auto;height:auto;min-height:54px;margin:16px 14px 0;padding:10px clamp(12px,3.5vw,20px);overflow:hidden;clip-path:inset(0 round 999px);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 6px 16px rgba(30,20,60,.10),inset 0 1px 0 rgba(255,255,255,.5)}
   .site-header .logo{font-size:15px}
-  .site-header nav{display:flex;align-items:center;gap:clamp(8px,3vw,14px);font-weight:600;font-size:14px}
-  .site-header nav a:first-child{display:none}
-  /* Desktop shows a solid-violet CONTACT pill (.contact-link). That element is
-     hidden on mobile, so give the nav's own CONTACT link the same pill treatment
-     here — including the cursor-follow fill (see the shared block up top). The
-     mechanism is inlined here so the desktop nav's plain "CONTACT" text link
-     is left untouched. */
-  .site-header nav a[href="#contact"]{
-    position:relative;overflow:hidden;
-    padding:7px clamp(10px,3vw,14px);border-radius:999px;color:#fff;font-weight:700;
-    /* undo the desktop text-clipped fill: this pill fills its whole box */
-    -webkit-background-clip:border-box;background-clip:border-box;-webkit-text-fill-color:#fff;
-    --hero-btn-x:50%;--hero-btn-y:50%;--hero-btn-fill:0%;
-    --hero-btn-base:#6c5ce7;--hero-btn-fill-color:#1c1533;
-    background:
-      radial-gradient(circle at var(--hero-btn-x) var(--hero-btn-y),
-        var(--hero-btn-fill-color) calc(var(--hero-btn-fill) - 1%),
-        transparent var(--hero-btn-fill)),
-      var(--hero-btn-base);
-    transition:--hero-btn-fill .6s cubic-bezier(.815,.005,.17,.995);
-  }
-  /* The pill has its own box radial-fill on hover; skip the text scale/weight. */
-  .site-header nav a[href="#contact"]:hover{transform:none;font-weight:700}
-  .contact-link{display:none}
+  /* Full row of links on mobile too: HOME · ABOUT · WORK · SKILLS · CONTACT.
+     Tight gap + 13px so all five fit beside the logo down to ~360px; HOME
+     drops below that (the logo already links home). */
+  .site-header nav{display:flex;align-items:center;gap:clamp(6px,2.4vw,12px);font-weight:600;font-size:13px}
+  .contact-link{display:inline-flex;padding:6px 12px;font-size:13px}
   [id]{scroll-margin-top:16px}
 
   /* ---- Hero: single flowing column matching the 660 Figma spec ----
@@ -546,7 +535,7 @@ footer .footer__top:hover{transform:scale(1.08);opacity:1}
   .hero h1,.hero__name{color:#fff}   /* copy no longer boxes them, so set text colour directly (user: keep heading + name white on mobile too; keywords stay dark like desktop) */
   .hero h1{font-size:44px;line-height:56px}
   .hero__name{margin-top:16px;font-size:20px;line-height:28px}
-  .hero__keywords{position:static;margin-top:16px;margin-bottom:0;font-size:14px;color:#262626}
+  .hero__keywords{order:2;position:static;margin:28px -30px 0;width:calc(100% + 60px);padding-top:0;font-size:14px;color:#262626}
   .hero__portrait{position:static;top:auto;right:auto;bottom:auto;display:block;width:min(320px,100%);height:auto;aspect-ratio:4/5;margin:32px auto 0;opacity:1;border-radius:24px}
   .project-count{position:static;right:auto;bottom:auto;width:auto;height:auto;min-height:0;margin:24px auto 0;padding:12px 22px}
   .hero__actions{order:1;gap:12px;margin-top:32px;width:100%}
@@ -682,4 +671,10 @@ footer .footer__top:hover{transform:scale(1.08);opacity:1}
    email address on one line, so allow it to wrap again as a last resort. */
 @media(max-width:520px){
   .info-rows dd{white-space:normal;overflow-wrap:anywhere}
+}
+
+/* Below ~360px the logo + 5 nav links + CONTACT no longer fit on one row, so
+   drop HOME from the nav — the logo already links to #home. */
+@media(max-width:360px){
+  .site-header nav a:first-child{display:none}
 }
