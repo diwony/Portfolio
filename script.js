@@ -357,7 +357,7 @@
   }
 
   document.querySelectorAll(
-    '.hero__actions .button, .contact-link, .site-header nav a[href="#contact"], ' +
+    '.hero__actions .button, .contact-link, .site-header nav a, ' +
     '.cta > .button, .contact-cards a, .project-card__detail-btn'
   ).forEach(bindCursorFill);
 
