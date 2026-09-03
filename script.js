@@ -4,7 +4,8 @@
   /* ---------- Project cards + detail modal ---------- */
   var PROJECTS = [
     {
-      num: '01', tag: 'VIDEO PROJECT', title: '영상 프로젝트 01',
+      num: '01', tag: 'VIDEO PROJECT', title: 'CJ대한통운 숏폼 광고 영상 제작 프로젝트',
+      titleHtml: '<img class="project-card__title-logo" src="./assets/art_600145_1682904729.png" alt="CJ대한통운"> 숏폼 광고 영상 제작 프로젝트',
       period: '2주', contribution: '100%(개인)',
       stack: ['Premiere', 'After Effects', 'Nano Banana', 'Gemini', 'Suno'],
       overview: "CJ대한통운을 '배송' 중심 이미지에서 첨단기술 기반 '물류 디자인 기업'으로 리브랜딩하기 위한 숏폼 광고 영상 기획",
@@ -31,7 +32,8 @@
       links: [{ label: 'GitHub View', href: '#' }, { label: '기획서 View', href: '#' }]
     },
     {
-      num: '03', tag: 'WEB RENEWAL', title: '홈페이지 리뉴얼 01',
+      num: '03', tag: 'WEB RENEWAL', title: '풀무원 웹사이트 리디자인 프로젝트',
+      titleHtml: '<img class="project-card__title-logo project-card__title-logo--pulmuone" src="./assets/pulmuone-logo.png" alt="풀무원"> 웹사이트 리디자인 프로젝트',
       period: '약 3주 (총 작업일 18일)', contribution: '94.7%(Team) — 리서치·UX/UI 디자인·퍼블리싱',
       stack: ['Figma', 'Tailwind CSS', 'GSAP', 'Swiper', 'HTML/CSS/JS', 'GitHub', 'Claude Code', 'Codex'],
       overview: '풀무원 ESG 웹사이트를 정보 나열형에서 사용자가 이해·경험하는 ESG 플랫폼으로 리디자인하고, PC·태블릿·모바일 반응형 웹사이트로 구현·배포한 프로젝트',
@@ -82,7 +84,7 @@
             '<div class="project-card__media">' + media + '</div>' +
             '<div class="project-card__face">' +
               '<div class="project-card__face-head"><span class="project-card__num">' + p.num + '</span><span class="project-card__tag">' + escapeHtml(p.tag) + '</span></div>' +
-              '<h3 class="project-card__title">' + escapeHtml(p.title) + '</h3>' +
+              '<h3 class="project-card__title">' + (p.titleHtml || escapeHtml(p.title)) + '</h3>' +
               '<div class="project-card__face-meta">' +
                 '<span class="project-card__period">제작기간 · ' + escapeHtml(p.period) + '</span>' +
                 '<button class="project-card__detail-btn" type="button">자세히 보기<span aria-hidden="true">→</span></button>' +
@@ -161,7 +163,7 @@
     if (!modal || !p) return;
 
     modal.querySelector('.project-modal__eyebrow').textContent = p.num + ' · ' + p.tag;
-    modal.querySelector('.project-modal__title').textContent = p.title;
+    modal.querySelector('.project-modal__title').textContent = 'Project Details';
     modal.querySelector('[data-field="period"]').textContent = p.period;
     modal.querySelector('[data-field="contribution"]').textContent = p.contribution;
     modal.querySelector('[data-field="overview"]').textContent = p.overview;
