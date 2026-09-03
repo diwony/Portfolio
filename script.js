@@ -16,9 +16,9 @@
       poster: './assets/project-01-poster.png',
       video: './assets/project-01.mp4',
       links: [
-        { label: 'GitHub View', href: '#' },
-        { label: '기획서 View', href: '#' },
-        { label: '영상 보기', href: 'https://drive.google.com/file/d/1E7H-bXvBvGZLOeGdQftnWEwpQyWTVkxz/view?usp=sharing' }
+        { label: '기획서 View', href: 'https://drive.google.com/file/d/103mHgIx7HwE27wAM4Y9jEFAKXb405ouF/view?usp=drive_link' },
+        { label: 'StoryBoard View', href: 'https://drive.google.com/file/d/1pZ5lkgrPMwceLwKUeqTtjO0zJbRWe_Bq/view?usp=sharing' },
+        { label: '영상 보기', href: 'https://drive.google.com/file/d/1E7H-bXvBvGZLOeGdQftnWEwpQyWTVkxz/view?usp=sharing', primary: true }
       ]
     },
     {
@@ -32,12 +32,17 @@
     },
     {
       num: '03', tag: 'WEB RENEWAL', title: '홈페이지 리뉴얼 01',
-      period: '기간을 입력하세요', contribution: '기여도를 입력하세요',
-      stack: ['STACK 01', 'STACK 02', 'STACK 03'],
-      overview: '프로젝트의 목표와 핵심 내용을 입력하세요.',
-      problems: ['문제 상황과 해결 방식을 입력하세요.'],
-      poster: null,
-      links: [{ label: 'GitHub View', href: '#' }, { label: '기획서 View', href: '#' }]
+      period: '약 3주 (총 작업일 18일)', contribution: '94.7%(team) — 리서치·UX/UI 디자인·퍼블리싱',
+      stack: ['Figma', 'Tailwind CSS', 'GSAP', 'Swiper', 'HTML/CSS/JS', 'GitHub', 'Claude Code', 'Codex'],
+      overview: '풀무원 ESG 웹사이트를 정보 나열형에서 사용자가 이해·경험하는 ESG 플랫폼으로 리디자인하고, PC·태블릿·모바일 반응형 웹사이트로 구현·배포한 프로젝트',
+      problems: [
+        '정적인 정보·수치 나열 → ESG 데이터·키워드를 시각적 디자인 요소로 재구성해 누구나 이해하는 경험형 구조로 전환',
+        '18일의 짧은 일정을 AI 툴 활용(바이브 코딩)으로 디자인 시안~반응형 구현 전 과정을 효율화하여 해결',
+        '이미지 과다로 인한 모바일 전송량·성능 저하 문제를 WebP 전환·반응형 소스·지연 로딩으로 전송량 약 60% 감축'
+      ],
+      poster: './assets/project-03-poster.jpg',
+      shots: { desktop: './assets/project-03-desktop.jpg', tablet: './assets/project-03-tablet.jpg', mobile: './assets/project-03-mobile.jpg' },
+      links: [{ label: 'GitHub View', href: 'https://github.com/icerence/kiwik-project' }, { label: '기획서 View', href: 'https://drive.google.com/file/d/13ipthNM4yUBRVQWvSoFvmLFcGWYYJo2n/view?usp=sharing' }, { label: '홈페이지', href: 'https://icerence.github.io/kiwik-project/', primary: true }]
     },
     {
       num: '04', tag: 'WEB RENEWAL', title: '홈페이지 리뉴얼 02',
@@ -88,6 +93,68 @@
     }).join('');
   }
 
+  /* ---------- Device page preview (홈페이지 리뉴얼 01 modal only) ----------
+     Fills the media box with a device switcher (데스크톱 / 태블릿 / 모바일) over
+     a vertically-scrollable full-page screenshot so the whole site can be
+     browsed inside the modal at each breakpoint. */
+  var PREVIEW_VIEWS = [
+    { key: 'desktop', label: '데스크톱' },
+    { key: 'tablet', label: '태블릿' },
+    { key: 'mobile', label: '모바일' }
+  ];
+
+  function clearProjectPreview(mediaWrap) {
+    mediaWrap.classList.remove('has-preview');
+    var existing = mediaWrap.querySelector('.project-modal__preview');
+    if (existing) existing.remove();
+  }
+
+  function buildProjectPreview(mediaWrap, shots, title) {
+    var views = PREVIEW_VIEWS.filter(function (v) { return shots[v.key]; });
+    if (!views.length) return;
+
+    mediaWrap.classList.add('has-preview');
+    var pv = document.createElement('div');
+    pv.className = 'project-modal__preview';
+    pv.innerHTML =
+      '<div class="project-modal__preview-bar">' +
+        views.map(function (v, i) {
+          return '<button type="button" class="project-modal__preview-tab' + (i === 0 ? ' is-active' : '') +
+            '" data-view="' + v.key + '">' + v.label + '</button>';
+        }).join('') +
+      '</div>' +
+      '<div class="project-modal__preview-stage is-' + views[0].key + '">' +
+        views.map(function (v) {
+          return '<img class="project-modal__preview-shot is-' + v.key + '-shot" src="' + shots[v.key] +
+            '" alt="' + escapeHtml(title) + ' ' + v.label + ' 전체 화면">';
+        }).join('') +
+      '</div>' +
+      '<span class="project-modal__preview-hint" aria-hidden="true">스크롤하여 전체 페이지 보기</span>';
+    mediaWrap.appendChild(pv);
+
+    var stage = pv.querySelector('.project-modal__preview-stage');
+    var hint = pv.querySelector('.project-modal__preview-hint');
+    var tabs = pv.querySelectorAll('.project-modal__preview-tab');
+
+    /* same cursor-follow radial fill ("자기장 효과") as the other buttons */
+    tabs.forEach(bindCursorFill);
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        tabs.forEach(function (t) { t.classList.toggle('is-active', t === tab); });
+        views.forEach(function (v) {
+          stage.classList.toggle('is-' + v.key, v.key === tab.dataset.view);
+        });
+        stage.scrollTop = 0;
+        hint.style.opacity = '';
+      });
+    });
+
+    stage.addEventListener('scroll', function () {
+      hint.style.opacity = stage.scrollTop > 8 ? '0' : '';
+    }, { passive: true });
+  }
+
   function openProjectModal(index) {
     var p = PROJECTS[index];
     var modal = document.getElementById('projectModal');
@@ -109,9 +176,9 @@
 
     var linksWrap = modal.querySelector('.project-modal__links');
     linksWrap.innerHTML = p.links.map(function (l) {
-      var isActive = l.href && l.href !== '#';
-      return '<a class="project-modal__link-btn' + (isActive ? ' is-active' : '') + '" href="' + l.href + '"' +
-        (isActive ? ' target="_blank" rel="noopener noreferrer"' : '') + '>' + escapeHtml(l.label) + '</a>';
+      var isExternal = l.href && l.href !== '#';
+      return '<a class="project-modal__link-btn' + (l.primary ? ' is-active' : '') + '" href="' + l.href + '"' +
+        (isExternal ? ' target="_blank" rel="noopener noreferrer"' : '') + '>' + escapeHtml(l.label) + '</a>';
     }).join('');
     /* modal link buttons are rebuilt on every open, so (re)bind the fill here */
     linksWrap.querySelectorAll('.project-modal__link-btn').forEach(bindCursorFill);
@@ -144,6 +211,13 @@
       playBtn.style.display = 'none';
     }
 
+    clearProjectPreview(mediaWrap);
+    if (p.shots) {
+      mediaImg.style.display = 'none';
+      playBtn.style.display = 'none';
+      buildProjectPreview(mediaWrap, p.shots, p.title);
+    }
+
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('modal-open');
@@ -156,6 +230,7 @@
     var mediaVideo = mediaWrap.querySelector('video');
     mediaVideo.pause();
     mediaWrap.classList.remove('is-playing');
+    clearProjectPreview(mediaWrap);
     modal.classList.remove('is-open');
     modal.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('modal-open');
