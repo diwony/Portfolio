@@ -125,7 +125,6 @@ img{max-width:100%}
 .hero__kw-group b::after{content:"·";padding:0 .7em;opacity:.55}
 @keyframes hero-marquee{to{transform:translateX(-50%)}}
 .hero__about{position:absolute;z-index:2;top:52%;left:41%;font-size:var(--fs-body-lg);font-weight:600;letter-spacing:.08em;text-transform:capitalize}
-.hero__about i{display:block;width:40px;height:2px;background:#000;transform:translateY(-16px)}
 .hero__portrait{position:absolute;z-index:1;top:clamp(84px,4.6vw,100px);right:6.7%;width:min(36.7vw,704px);height:auto}
 /* Below 1800px the centring margin would collapse to 32px, so hold a left
    gutter for the hero copy that eases from 118px to ~92px as the viewport
@@ -146,6 +145,15 @@ img{max-width:100%}
 .hero__line:nth-child(2){transition-delay:.12s}
 .hero__line:nth-child(3){transition-delay:.24s}
 .hero__name{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.16,.84,.44,1) .38s,transform .7s cubic-bezier(.16,.84,.44,1) .38s}
+/* Per-character reveal: script.js splits headline/name/label text (hero) and
+   the CTA h2 + lead paragraph into .char-rise spans, each carrying a
+   --char-index for a staggered rise. The hero fires on load; the CTA fires
+   when its .reveal section gains .is-visible on scroll. */
+.hero__line.is-split,.hero__name.is-split,.hero__about.is-split,.cta h2.is-split,.cta>p.is-split{opacity:1;transform:none;transition:none}
+.char-rise{display:inline-block;white-space:pre;opacity:0;transform:translateY(.9em);transition:opacity .55s cubic-bezier(.16,.84,.44,1),transform .55s cubic-bezier(.16,.84,.44,1);transition-delay:calc(var(--char-index,0)*var(--char-stagger,.024s))}
+/* CTA copy runs a touch quicker than the hero so the paragraph doesn't drag. */
+.cta{--char-stagger:.02s}
+.hero.is-loaded .char-rise,.cta.is-visible .char-rise{opacity:1;transform:none}
 .hero__portrait{opacity:0;transform:translateY(24px) scale(.97);transition:opacity .9s cubic-bezier(.16,.84,.44,1) .15s,transform .9s cubic-bezier(.16,.84,.44,1) .15s}
 .hero__actions{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.16,.84,.44,1) .5s,transform .7s cubic-bezier(.16,.84,.44,1) .5s}
 .hero__about{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.16,.84,.44,1) .55s,transform .7s cubic-bezier(.16,.84,.44,1) .55s}
@@ -154,7 +162,7 @@ img{max-width:100%}
 .hero.is-loaded .hero__line,.hero.is-loaded .hero__name,.hero.is-loaded .hero__actions,.hero.is-loaded .hero__about,.hero.is-loaded .hero__keywords{opacity:1;transform:none}
 .hero.is-loaded .hero__portrait{opacity:1;transform:none}
 .hero.is-loaded .project-count{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.hero__line,.hero__name,.hero__portrait,.hero__actions,.hero__about,.hero__keywords,.project-count{transition:none;opacity:1;transform:none}.hero__keywords-track{animation:none}}
+@media(prefers-reduced-motion:reduce){.hero__line,.hero__name,.char-rise,.hero__portrait,.hero__actions,.hero__about,.hero__keywords,.project-count{transition:none;opacity:1;transform:none}.hero__keywords-track{animation:none}}
 
 /* ---------- Shared section rhythm ---------- */
 .section{position:relative;isolation:isolate;padding:96px max(32px,calc((100vw - 1564px)/2))}

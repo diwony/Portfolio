@@ -260,14 +260,71 @@
     if (e.key === 'Escape') closeProjectModal();
   });
 
+  /* Split an element's text into per-character .char-rise spans so each letter
+     can rise in a staggered sequence. `start` seeds --char-index, so passing a
+     running counter lets a group of elements flow as one continuous cascade.
+     <br> and any element children are preserved. Returns the next index. */
+  function splitChars(el, start) {
+    var label = el.textContent;
+    var idx = start;
+    var frag = document.createDocumentFragment();
+    Array.prototype.slice.call(el.childNodes).forEach(function (node) {
+      if (node.nodeType === 3) {
+        var text = node.nodeValue;
+        for (var i = 0; i < text.length; i++) {
+          var span = document.createElement('span');
+          span.className = 'char-rise';
+          span.textContent = text[i];
+          span.setAttribute('aria-hidden', 'true');
+          span.style.setProperty('--char-index', idx++);
+          frag.appendChild(span);
+        }
+      } else if (node.nodeName === 'BR') {
+        frag.appendChild(document.createElement('br'));
+      } else {
+        frag.appendChild(node.cloneNode(true));
+      }
+    });
+    el.setAttribute('aria-label', label);
+    el.textContent = '';
+    el.appendChild(frag);
+    el.classList.add('is-split');
+    return idx;
+  }
+
   /* ---------- Hero intro reveal (fires once on load) ---------- */
   var hero = document.querySelector('.hero');
   if (hero) {
+    /* Headline lines + name flow as one continuous cascade. */
+    var splitCount = 0;
+    hero.querySelectorAll('.hero__line, .hero__name').forEach(function (el) {
+      splitCount = splitChars(el, splitCount);
+    });
+
+    /* The ABOUT label runs its own short cascade, restarting from zero. */
+    var about = hero.querySelector('.hero__about');
+    var aboutLabel = about && about.querySelector('span');
+    if (aboutLabel) {
+      splitChars(aboutLabel, 0);
+      about.classList.add('is-split');
+    }
+
     if (reduceMotion) {
       hero.classList.add('is-loaded');
     } else {
       setTimeout(function () { hero.classList.add('is-loaded'); }, 50);
     }
+  }
+
+  /* ---------- CTA heading per-character reveal (fires when the section
+       scrolls into view — .cta is a .reveal, so it gains .is-visible then). ---------- */
+  var cta = document.querySelector('.cta');
+  if (cta) {
+    var ctaCount = 0;
+    var ctaHeading = cta.querySelector('h2');
+    var ctaLead = cta.querySelector('p');
+    if (ctaHeading) ctaCount = splitChars(ctaHeading, ctaCount);
+    if (ctaLead) splitChars(ctaLead, ctaCount);
   }
 
   /* ---------- Cursor-follow radial fill (hero buttons, header CONTACT, CTA button, contact cards, project "자세히 보기", modal link buttons) ----------
