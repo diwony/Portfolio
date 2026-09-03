@@ -107,11 +107,14 @@
       return '<span class="project-modal__stack-tag">' + escapeHtml(s) + '</span>';
     }).join('');
 
-    modal.querySelector('.project-modal__links').innerHTML = p.links.map(function (l) {
+    var linksWrap = modal.querySelector('.project-modal__links');
+    linksWrap.innerHTML = p.links.map(function (l) {
       var isActive = l.href && l.href !== '#';
       return '<a class="project-modal__link-btn' + (isActive ? ' is-active' : '') + '" href="' + l.href + '"' +
         (isActive ? ' target="_blank" rel="noopener noreferrer"' : '') + '>' + escapeHtml(l.label) + '</a>';
     }).join('');
+    /* modal link buttons are rebuilt on every open, so (re)bind the fill here */
+    linksWrap.querySelectorAll('.project-modal__link-btn').forEach(bindCursorFill);
 
     var mediaWrap = modal.querySelector('.project-modal__media');
     var mediaImg = mediaWrap.querySelector('img');
@@ -266,6 +269,40 @@
       setTimeout(function () { hero.classList.add('is-loaded'); }, 50);
     }
   }
+
+  /* ---------- Cursor-follow radial fill (hero buttons, header CONTACT, CTA button, contact cards, project "자세히 보기", modal link buttons) ----------
+     Matches GSAP's "Magnetic Button" demo (.index-style__ButtonMain): on
+     enter the fill circle springs out from the cursor, tracks the cursor
+     while inside, and on leave collapses back toward the last cursor point.
+     The growth/shrink is a CSS transition on --hero-btn-fill; JS only sets
+     the cursor position (instant, like GSAP's quickSetter). */
+  function bindCursorFill(btn) {
+    if (btn.dataset.cursorFill) return;
+    btn.dataset.cursorFill = '1';
+    var rect = null;
+
+    function setPoint(e) {
+      if (!rect) rect = btn.getBoundingClientRect();
+      btn.style.setProperty('--hero-btn-x', (e.clientX - rect.left) + 'px');
+      btn.style.setProperty('--hero-btn-y', (e.clientY - rect.top) + 'px');
+    }
+
+    btn.addEventListener('pointerenter', function (e) {
+      rect = btn.getBoundingClientRect();
+      setPoint(e);
+      btn.style.setProperty('--hero-btn-fill', '100%');
+    });
+    btn.addEventListener('pointermove', setPoint);
+    btn.addEventListener('pointerleave', function () {
+      btn.style.setProperty('--hero-btn-fill', '0%');
+      rect = null;
+    });
+  }
+
+  document.querySelectorAll(
+    '.hero__actions .button, .contact-link, .site-header nav a[href="#contact"], ' +
+    '.cta > .button, .contact-cards a, .project-card__detail-btn'
+  ).forEach(bindCursorFill);
 
   /* ---------- Reveal on scroll ---------- */
   var pending = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
