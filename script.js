@@ -68,7 +68,7 @@
       ],
       poster: './assets/project-05-poster.jpg',
       shots: { desktop: './assets/project-05-desktop.jpg', tablet: './assets/project-05-tablet.jpg', mobile: './assets/project-05-mobile.jpg' },
-      links: [{ label: 'GitHub View', href: 'https://github.com/diwony/FoodPlay' }, { label: '홈페이지', href: 'https://diwony.github.io/FoodPlay/', primary: true }]
+      links: [{ label: 'GitHub View', href: 'https://github.com/diwony/FoodPlay' }, { label: '기획서 View', href: '#' }, { label: '홈페이지', href: 'https://diwony.github.io/FoodPlay/', primary: true }]
     }
   ];
 
