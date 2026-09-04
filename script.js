@@ -14,7 +14,7 @@
         '10일이라는 짧은 제작 기간을 AI 툴 활용(이미지/영상/음성 생성)으로 기획~편집 전 과정을 효율화하여 해결',
         '다수 사운드 레이어 속 내레이션 명료도 저하 문제를 배경음 자동 감쇠 처리로 해결'
       ],
-      poster: './assets/project-01-poster.png',
+      poster: './assets/project-01-poster.jpeg',
       video: './assets/project-01.mp4',
       links: [
         { label: '기획서 View', href: 'https://drive.google.com/file/d/103mHgIx7HwE27wAM4Y9jEFAKXb405ouF/view?usp=drive_link' },
