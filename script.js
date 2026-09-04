@@ -56,13 +56,19 @@
       links: [{ label: 'GitHub View', href: '#' }, { label: '기획서 View', href: '#' }]
     },
     {
-      num: '05', tag: 'PERSONAL PROJECT', title: '개인 프로젝트 (이름 미정)',
-      period: '기간을 입력하세요', contribution: '기여도를 입력하세요',
-      stack: ['STACK 01', 'STACK 02', 'STACK 03'],
-      overview: '프로젝트의 목표와 핵심 내용을 입력하세요.',
-      problems: ['문제 상황과 해결 방식을 입력하세요.'],
-      poster: null,
-      links: [{ label: 'GitHub View', href: '#' }, { label: '기획서 View', href: '#' }]
+      num: '05', tag: 'PERSONAL PROJECT', title: 'FoodPlay — 냉장고 재료로 찾는 유튜브 요리 도우미',
+      period: '약 5일', contribution: '100%(개인)',
+      stack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'React Native (Expo)', 'YouTube IFrame Player API', 'Cloudflare Workers', 'YouTube Data API'],
+      overview: '냉장고에 있는 재료를 입력하면 만들 수 있는 유튜브 요리 영상을 찾아주고, 조리 스텝마다 붙은 타임스탬프를 누르면 영상의 그 장면으로 바로 이동하는 요리 도우미 웹·앱. 1인 개인 프로젝트로 기획·디자인·프론트엔드·데이터 파이프라인 전 과정을 담당.',
+      problems: [
+        '레시피 영상에서 원하는 조리 장면을 찾기 번거로운 문제 → 스텝마다 타임스탬프 seek + 스크롤 시 우상단 미니 플레이어(PiP) 고정으로 영상과 스텝을 동시에 확인',
+        '"가진 재료로 뭘 만들지 모르겠다" → 재료·기분·상황(자유 입력 포함)을 고르면 결과가 실제로 좁혀지는 매칭·랭킹 로직, 냉장고·밀키트·장보기·디저트 4가지 시작 모드로 진입점 분리',
+        '영상 목록이 금방 낡고 API 키 노출·할당량 위험이 있는 문제 → 빌드 타임 큐레이션 + 11,000+ 영상 풀(1층) 위에 실시간 유튜브 검색(2층)을 얹고, 키를 숨긴 Cloudflare Workers 프록시(24h 캐시) 경유. 프록시·할당량이 없어도 1층 풀로 조용히 폴백해 화면이 비지 않음',
+        '웹(React)과 모바일(React Native)의 코드 중복 문제 → 매칭·데이터 로직을 @foodplay/core 패키지로 100% 공유'
+      ],
+      poster: './assets/project-05-poster.jpg',
+      shots: { desktop: './assets/project-05-desktop.jpg', tablet: './assets/project-05-tablet.jpg', mobile: './assets/project-05-mobile.jpg' },
+      links: [{ label: 'GitHub View', href: 'https://github.com/diwony/FoodPlay' }, { label: '홈페이지', href: 'https://diwony.github.io/FoodPlay/', primary: true }]
     }
   ];
 
