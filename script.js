@@ -34,7 +34,7 @@
     {
       num: '03', tag: 'WEB RENEWAL', title: '풀무원 웹사이트 리디자인 프로젝트',
       titleHtml: '<img class="project-card__title-logo project-card__title-logo--pulmuone" src="./assets/pulmuone-logo.png" alt="풀무원"> 웹사이트 리디자인 프로젝트',
-      period: '약 3주 (총 작업일 18일)', contribution: '94.7%(Team) — 리서치·UX/UI 디자인·퍼블리싱',
+      period: '약 3주 (총 작업일 18일)', contribution: '33%(Team) — 리서치·UX/UI 디자인·퍼블리싱',
       stack: ['Figma', 'Tailwind CSS', 'GSAP', 'Swiper', 'HTML/CSS/JS', 'GitHub', 'Claude Code', 'Codex'],
       overview: '풀무원 ESG 웹사이트를 정보 나열형에서 사용자가 이해·경험하는 ESG 플랫폼으로 리디자인하고, PC·태블릿·모바일 반응형 웹사이트로 구현·배포한 프로젝트',
       problems: [
