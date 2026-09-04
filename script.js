@@ -67,7 +67,7 @@
         '웹(React)과 모바일(React Native)의 코드 중복 문제 → 매칭·데이터 로직을 @foodplay/core 패키지로 100% 공유'
       ],
       poster: './assets/project-05-poster.jpg',
-      shots: { desktop: './assets/project-05-desktop.jpg', tablet: './assets/project-05-tablet.jpg', mobile: './assets/project-05-mobile.jpg' },
+      demos: { desktop: './assets/project-05-desktop.gif', mobile: './assets/project-05-mobile.gif' },
       links: [{ label: 'GitHub View', href: 'https://github.com/diwony/FoodPlay' }, { label: '기획서 View', href: '#' }, { label: '홈페이지', href: 'https://diwony.github.io/FoodPlay/', primary: true }]
     }
   ];
@@ -117,13 +117,13 @@
     if (existing) existing.remove();
   }
 
-  function buildProjectPreview(mediaWrap, shots, title) {
+  function buildProjectPreview(mediaWrap, shots, title, isDemo) {
     var views = PREVIEW_VIEWS.filter(function (v) { return shots[v.key]; });
     if (!views.length) return;
 
     mediaWrap.classList.add('has-preview');
     var pv = document.createElement('div');
-    pv.className = 'project-modal__preview';
+    pv.className = 'project-modal__preview' + (isDemo ? ' is-demo' : '');
     pv.innerHTML =
       '<div class="project-modal__preview-bar">' +
         views.map(function (v, i) {
@@ -134,10 +134,10 @@
       '<div class="project-modal__preview-stage is-' + views[0].key + '">' +
         views.map(function (v) {
           return '<img class="project-modal__preview-shot is-' + v.key + '-shot" src="' + shots[v.key] +
-            '" alt="' + escapeHtml(title) + ' ' + v.label + ' 전체 화면">';
+            '" alt="' + escapeHtml(title) + ' ' + v.label + (isDemo ? ' 사용 예시' : ' 전체 화면') + '">';
         }).join('') +
       '</div>' +
-      '<span class="project-modal__preview-hint" aria-hidden="true">스크롤하여 전체 페이지 보기</span>';
+      (isDemo ? '' : '<span class="project-modal__preview-hint" aria-hidden="true">스크롤하여 전체 페이지 보기</span>');
     mediaWrap.appendChild(pv);
 
     var stage = pv.querySelector('.project-modal__preview-stage');
@@ -154,13 +154,15 @@
           stage.classList.toggle('is-' + v.key, v.key === tab.dataset.view);
         });
         stage.scrollTop = 0;
-        hint.style.opacity = '';
+        if (hint) hint.style.opacity = '';
       });
     });
 
-    stage.addEventListener('scroll', function () {
-      hint.style.opacity = stage.scrollTop > 8 ? '0' : '';
-    }, { passive: true });
+    if (hint) {
+      stage.addEventListener('scroll', function () {
+        hint.style.opacity = stage.scrollTop > 8 ? '0' : '';
+      }, { passive: true });
+    }
   }
 
   function openProjectModal(index) {
@@ -220,7 +222,11 @@
     }
 
     clearProjectPreview(mediaWrap);
-    if (p.shots) {
+    if (p.demos) {
+      mediaImg.style.display = 'none';
+      playBtn.style.display = 'none';
+      buildProjectPreview(mediaWrap, p.demos, p.title, true);
+    } else if (p.shots) {
       mediaImg.style.display = 'none';
       playBtn.style.display = 'none';
       buildProjectPreview(mediaWrap, p.shots, p.title);
