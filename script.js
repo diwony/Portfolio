@@ -67,7 +67,7 @@
         '웹(React)과 모바일(React Native)의 코드 중복 문제 → 매칭·데이터 로직을 @foodplay/core 패키지로 100% 공유'
       ],
       poster: './assets/project-05-poster.jpg',
-      demos: { desktop: './assets/project-05-desktop.gif', mobile: './assets/project-05-mobile.gif' },
+      demos: { desktop: './assets/project-05-desktop.mp4', mobile: './assets/project-05-mobile.mp4' },
       links: [{ label: 'GitHub View', href: 'https://github.com/diwony/FoodPlay' }, { label: '기획서 View', href: 'https://drive.google.com/file/d/1v9p_1MyIw4iXrabMlDN0CpubxitsVtlJ/view?usp=sharing' }, { label: '홈페이지', href: 'https://diwony.github.io/FoodPlay/', primary: true }]
     }
   ];
@@ -114,7 +114,10 @@
   function clearProjectPreview(mediaWrap) {
     mediaWrap.classList.remove('has-preview');
     var existing = mediaWrap.querySelector('.project-modal__preview');
-    if (existing) existing.remove();
+    if (existing) {
+      existing.querySelectorAll('video').forEach(function (v) { v.pause(); v.removeAttribute('src'); v.load(); });
+      existing.remove();
+    }
   }
 
   function buildProjectPreview(mediaWrap, shots, title, isDemo) {
@@ -133,8 +136,13 @@
       '</div>' +
       '<div class="project-modal__preview-stage is-' + views[0].key + '">' +
         views.map(function (v) {
+          var label = escapeHtml(title) + ' ' + v.label + (isDemo ? ' 사용 예시' : ' 전체 화면');
+          if (isDemo) {
+            return '<video class="project-modal__preview-shot is-' + v.key + '-shot" src="' + shots[v.key] +
+              '" muted loop playsinline autoplay preload="auto" aria-label="' + label + '"></video>';
+          }
           return '<img class="project-modal__preview-shot is-' + v.key + '-shot" src="' + shots[v.key] +
-            '" alt="' + escapeHtml(title) + ' ' + v.label + (isDemo ? ' 사용 예시' : ' 전체 화면') + '">';
+            '" alt="' + label + '">';
         }).join('') +
       '</div>' +
       (isDemo ? '' : '<span class="project-modal__preview-hint" aria-hidden="true">스크롤하여 전체 페이지 보기</span>');
@@ -143,6 +151,19 @@
     var stage = pv.querySelector('.project-modal__preview-stage');
     var hint = pv.querySelector('.project-modal__preview-hint');
     var tabs = pv.querySelectorAll('.project-modal__preview-tab');
+    var vids = pv.querySelectorAll('video');
+
+    function playView(key) {
+      vids.forEach(function (vd) {
+        if (vd.classList.contains('is-' + key + '-shot')) {
+          try { vd.currentTime = 0; } catch (e) {}
+          vd.play().catch(function () {});
+        } else {
+          vd.pause();
+        }
+      });
+    }
+    if (isDemo) playView(views[0].key);
 
     /* same cursor-follow radial fill ("자기장 효과") as the other buttons */
     tabs.forEach(bindCursorFill);
@@ -155,6 +176,7 @@
         });
         stage.scrollTop = 0;
         if (hint) hint.style.opacity = '';
+        if (isDemo) playView(tab.dataset.view);
       });
     });
 
