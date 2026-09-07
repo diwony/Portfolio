@@ -143,21 +143,14 @@
           if (isDemo) {
             var vid = '<video class="project-modal__preview-shot is-' + v.key + '-shot" src="' + shots[v.key] +
               '" muted loop playsinline autoplay preload="auto" aria-label="' + label + '"></video>';
-            /* the App tab plays the capture on two fixed devices — an iPhone and an
-               Android foldable that keeps unfolding to a wider screen */
+            /* the App tab plays the capture on a single fixed iPhone */
             if (v.key === 'app') {
-              var appVid = function (dev) {
-                return '<video class="project-modal__preview-shot is-app-shot" src="' + shots[v.key] +
-                  '" muted loop playsinline autoplay preload="auto" aria-label="' + label + ' ' + dev + '"></video>';
-              };
               return '<div class="project-modal__preview-shot is-app-shot project-modal__phones">' +
                 '<figure class="project-modal__phone is-ios">' +
-                  '<div class="project-modal__phone-screen">' + appVid('iPhone') + '</div>' +
-                  '<figcaption>iPhone</figcaption>' +
-                '</figure>' +
-                '<figure class="project-modal__phone is-android">' +
-                  '<div class="project-modal__phone-screen">' + appVid('Android') + '</div>' +
-                  '<figcaption>Android</figcaption>' +
+                  '<div class="project-modal__phone-screen">' +
+                    '<video class="project-modal__preview-shot is-app-shot" src="' + shots[v.key] +
+                    '" muted loop playsinline autoplay preload="auto" aria-label="' + label + '"></video>' +
+                  '</div>' +
                 '</figure>' +
               '</div>';
             }

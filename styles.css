@@ -323,21 +323,16 @@ body.modal-open{overflow:hidden}
 .project-modal__preview.is-demo .project-modal__preview-stage{overflow:hidden;display:flex;align-items:center;justify-content:center;padding:14px;background:radial-gradient(circle at 50% 0,#2b2547,#0d0b16 65%)}
 .project-modal__media .project-modal__preview.is-demo .project-modal__preview-shot{position:static;width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain;border-radius:12px;box-shadow:0 14px 34px rgba(0,0,0,.42),0 0 0 4px rgba(255,255,255,.08)}
 .project-modal__media .project-modal__preview.is-demo .project-modal__preview-stage.is-mobile .is-mobile-shot{width:auto;margin:0}
-/* App tab (개인 프로젝트 05) — 고정된 두 기기: iPhone + 화면이 넓어지도록 계속 펼쳐지는 Android 폴더블 */
+/* App tab (개인 프로젝트 05) — 고정된 iPhone 한 대에서 앱 캡처 재생 */
 .project-modal__media .project-modal__preview.is-demo .project-modal__preview-stage.is-app{padding:14px 10px 6px}
 .project-modal__media .project-modal__preview.is-demo .project-modal__preview-stage.is-app .project-modal__phones{
-  --ph-h:clamp(210px,40vh,296px);
-  display:flex;align-items:flex-end;justify-content:center;gap:clamp(14px,4vw,34px);
+  --ph-h:clamp(210px,44vh,320px);
+  display:flex;align-items:center;justify-content:center;
   width:100%;height:100%;max-width:none;max-height:none;
 }
-.project-modal__phones .project-modal__phone{
-  display:flex;flex-direction:column;align-items:center;gap:9px;margin:0;flex:0 0 auto;
-}
-.project-modal__phones .project-modal__phone figcaption{
-  font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);
-}
+.project-modal__phones .project-modal__phone{margin:0;flex:0 0 auto}
 .project-modal__phones .project-modal__phone-screen{
-  position:relative;box-sizing:border-box;height:var(--ph-h);padding:6px;
+  position:relative;box-sizing:border-box;height:var(--ph-h);width:calc(var(--ph-h) * .463);padding:6px;
   border-radius:26px;overflow:hidden;background:linear-gradient(150deg,#33333b,#141418 70%);
   box-shadow:0 0 0 2px #43434d,0 22px 40px -14px rgba(0,0,0,.6),inset 0 0 6px rgba(255,255,255,.08);
 }
@@ -345,43 +340,10 @@ body.modal-open{overflow:hidden}
   display:block;width:100%;height:100%;max-width:none;max-height:none;
   object-fit:cover;border-radius:20px;box-shadow:none;background:#000;
 }
-/* iPhone — 완전 고정, 다이내믹 아일랜드 */
-.project-modal__phones .is-ios .project-modal__phone-screen{width:calc(var(--ph-h) * .463)}
+/* 다이내믹 아일랜드 */
 .project-modal__phones .is-ios .project-modal__phone-screen::after{
   content:"";position:absolute;top:12px;left:50%;transform:translateX(-50%);
   width:34%;height:11px;background:#0b0b0f;border-radius:100px;z-index:2;
-}
-/* Android 폴더블 — 접힘(좁은 커버 화면) → 펼침(넓은 화면)을 무한 반복.
-   프레임이 넓어지는 만큼 화면 안 콘텐츠도 같은 배율로 확대되어 "펴지면서 커지는" 모션. */
-.project-modal__phones .is-android .project-modal__phone-screen{
-  width:calc(var(--ph-h) * .46);transform-origin:center bottom;
-  animation:android-unfold 7.2s cubic-bezier(.62,0,.32,1) infinite;
-}
-.project-modal__phones .is-android .project-modal__phone-screen video{
-  transform-origin:center center;
-  animation:android-zoom 7.2s cubic-bezier(.62,0,.32,1) infinite;
-}
-.project-modal__phones .is-android .project-modal__phone-screen::before{
-  content:"";position:absolute;top:6px;bottom:6px;left:50%;width:2px;transform:translateX(-50%);
-  background:rgba(255,255,255,.13);z-index:2;pointer-events:none;
-}
-.project-modal__phones .is-android .project-modal__phone-screen::after{
-  content:"";position:absolute;top:13px;left:50%;transform:translateX(-50%);
-  width:7px;height:7px;background:#0b0b0f;border-radius:50%;z-index:3;
-}
-@keyframes android-unfold{
-  0%,12%{width:calc(var(--ph-h) * .46);transform:scale(.94)}
-  38%,62%{width:calc(var(--ph-h) * .88);transform:scale(1.06)}
-  88%,100%{width:calc(var(--ph-h) * .46);transform:scale(.94)}
-}
-@keyframes android-zoom{
-  0%,12%{transform:scale(1)}
-  38%,62%{transform:scale(1.34)}
-  88%,100%{transform:scale(1)}
-}
-@media (prefers-reduced-motion:reduce){
-  .project-modal__phones .is-android .project-modal__phone-screen{animation:none;width:calc(var(--ph-h) * .88);transform:scale(1.04)}
-  .project-modal__phones .is-android .project-modal__phone-screen video{animation:none;transform:scale(1.32)}
 }
 .project-modal__info{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
 .project-modal__row{display:flex;gap:20px;align-items:flex-start}
@@ -568,7 +530,7 @@ footer .footer__top:hover{transform:scale(1.08);opacity:1}
   .project-modal__body{flex-direction:column;gap:24px}
   .project-modal__media{flex:none;align-self:stretch;width:100%;aspect-ratio:16/9}
   .project-modal__media.has-preview{flex:none;width:100%;height:min(62vh,460px)}
-  .project-modal__media .project-modal__preview.is-demo .project-modal__preview-stage.is-app .project-modal__phones{--ph-h:clamp(185px,32vh,225px);gap:8px}
+  .project-modal__media .project-modal__preview.is-demo .project-modal__preview-stage.is-app .project-modal__phones{--ph-h:clamp(200px,40vh,300px)}
   .project-modal__key{flex-basis:96px;white-space:normal}
   .projects__blob{display:none}
   .skills__intro{position:static;margin:18px 0}
