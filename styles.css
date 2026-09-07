@@ -351,10 +351,15 @@ body.modal-open{overflow:hidden}
   content:"";position:absolute;top:12px;left:50%;transform:translateX(-50%);
   width:34%;height:11px;background:#0b0b0f;border-radius:100px;z-index:2;
 }
-/* Android — 접힘(좁은 화면) → 펼침(넓은 화면) 무한 반복, 가운데 힌지 + 펀치홀 */
+/* Android 폴더블 — 접힘(좁은 커버 화면) → 펼침(넓은 화면)을 무한 반복.
+   프레임이 넓어지는 만큼 화면 안 콘텐츠도 같은 배율로 확대되어 "펴지면서 커지는" 모션. */
 .project-modal__phones .is-android .project-modal__phone-screen{
-  width:calc(var(--ph-h) * .463);
-  animation:android-unfold 7s cubic-bezier(.65,0,.35,1) infinite;
+  width:calc(var(--ph-h) * .46);transform-origin:center bottom;
+  animation:android-unfold 7.2s cubic-bezier(.62,0,.32,1) infinite;
+}
+.project-modal__phones .is-android .project-modal__phone-screen video{
+  transform-origin:center center;
+  animation:android-zoom 7.2s cubic-bezier(.62,0,.32,1) infinite;
 }
 .project-modal__phones .is-android .project-modal__phone-screen::before{
   content:"";position:absolute;top:6px;bottom:6px;left:50%;width:2px;transform:translateX(-50%);
@@ -365,12 +370,18 @@ body.modal-open{overflow:hidden}
   width:7px;height:7px;background:#0b0b0f;border-radius:50%;z-index:3;
 }
 @keyframes android-unfold{
-  0%,12%{width:calc(var(--ph-h) * .463)}
-  36%,64%{width:calc(var(--ph-h) * .84)}
-  88%,100%{width:calc(var(--ph-h) * .463)}
+  0%,12%{width:calc(var(--ph-h) * .46);transform:scale(.94)}
+  38%,62%{width:calc(var(--ph-h) * .88);transform:scale(1.06)}
+  88%,100%{width:calc(var(--ph-h) * .46);transform:scale(.94)}
+}
+@keyframes android-zoom{
+  0%,12%{transform:scale(1)}
+  38%,62%{transform:scale(1.34)}
+  88%,100%{transform:scale(1)}
 }
 @media (prefers-reduced-motion:reduce){
-  .project-modal__phones .is-android .project-modal__phone-screen{animation:none;width:calc(var(--ph-h) * .84)}
+  .project-modal__phones .is-android .project-modal__phone-screen{animation:none;width:calc(var(--ph-h) * .88);transform:scale(1.04)}
+  .project-modal__phones .is-android .project-modal__phone-screen video{animation:none;transform:scale(1.32)}
 }
 .project-modal__info{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
 .project-modal__row{display:flex;gap:20px;align-items:flex-start}
@@ -557,7 +568,7 @@ footer .footer__top:hover{transform:scale(1.08);opacity:1}
   .project-modal__body{flex-direction:column;gap:24px}
   .project-modal__media{flex:none;align-self:stretch;width:100%;aspect-ratio:16/9}
   .project-modal__media.has-preview{flex:none;width:100%;height:min(62vh,460px)}
-  .project-modal__media .project-modal__preview.is-demo .project-modal__preview-stage.is-app .project-modal__phones{--ph-h:clamp(190px,34vh,250px);gap:10px}
+  .project-modal__media .project-modal__preview.is-demo .project-modal__preview-stage.is-app .project-modal__phones{--ph-h:clamp(185px,32vh,225px);gap:8px}
   .project-modal__key{flex-basis:96px;white-space:normal}
   .projects__blob{display:none}
   .skills__intro{position:static;margin:18px 0}
