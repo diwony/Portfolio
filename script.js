@@ -59,17 +59,18 @@
       num: '05', tag: 'PERSONAL PROJECT', title: 'FoodPlay — 냉장고 재료로 찾는 유튜브 요리 도우미',
       titleHtml: '<img class="project-card__title-logo project-card__title-logo--foodplay" src="./assets/foodplay-logo.png" alt="FoodPlay"> 냉장고 재료로 찾는 유튜브 요리 도우미',
       period: '약 5일', contribution: '100%(개인)',
-      stack: ['React 19', 'TypeScript', 'Vite', 'Tailwind CSS v4', 'Expo · React Native 0.86', 'YouTube IFrame Player API', 'Cloudflare Workers · KV', 'YouTube Data API v3', 'Claude API (빌드 타임)'],
+      stack: ['React 19', 'TypeScript', 'Vite', 'Tailwind CSS v4', 'Expo · React Native 0.86', 'PWA · TWA (Android APK)', 'YouTube IFrame Player API', 'Cloudflare Workers · KV', 'YouTube Data API v3', 'Claude API (빌드 타임)'],
       overview: '냉장고 재료를 입력하면 만들 수 있는 유튜브 요리 영상을 찾아주고, 조리 스텝의 타임스탬프를 누르면 영상의 그 장면으로 바로 이동하는 요리 도우미 웹·모바일 앱. 검색 없이 훑어보다 발견하는 홈, 자취생·1인가구 등 페르소나 맞춤 추천, 롱폼/숏폼 전환, 절약 금액·댓글 반응 요약도 함께 제공하며, 기획·디자인·프론트엔드부터 자막→스텝 변환 파이프라인(Claude API)까지 1인 진행.',
       problems: [
         '레시피 영상에서 원하는 장면 찾기가 번거로움 → 스텝별 타임스탬프 seek + 스크롤 시 미니 플레이어(PiP) 고정, iframe 재생성 없이 CSS만 바꿔 재생 끊김 제거',
         '"가진 재료로 뭘 할지 모르겠다" → 재료·기분·상황을 칩·자유 문장으로 받는 매칭·랭킹 로직, 4가지 시작 모드로 진입점 분리',
         '조회수 정렬 시 인기 채널이 상단 독식 → 채널 반복마다 커지는 감점으로 그리디 재정렬해 비슷한 후보 사이에서만 다양화',
-        '정적 배포라 API 키 노출·목록 노후 위험 → 키 숨긴 Cloudflare Workers 프록시 + 11,000+ 영상 풀로 조용히 폴백'
+        '정적 배포라 API 키 노출·목록 노후 위험 → 키 숨긴 Cloudflare Workers 프록시 + 11,000+ 영상 풀로 조용히 폴백',
+        'iOS 개발자 계정 없이 웹 코드 하나로 여러 플랫폼 배포 → PWA로 만들고 PWABuilder TWA로 감싼 Android APK를 사이드로딩, Digital Asset Links로 주소창 제거·웹 갱신 시 앱도 자동 최신화'
       ],
       poster: './assets/project-05-poster.jpg',
       demos: { desktop: './assets/project-05-desktop.mp4', mobile: './assets/project-05-mobile.mp4' },
-      links: [{ label: 'GitHub View', href: 'https://github.com/diwony/FoodPlay' }, { label: '기획서 View', href: 'https://drive.google.com/file/d/1v9p_1MyIw4iXrabMlDN0CpubxitsVtlJ/view?usp=sharing' }, { label: '홈페이지', href: 'https://diwony.github.io/FoodPlay/', primary: true }]
+      links: [{ label: 'GitHub View', href: 'https://github.com/diwony/FoodPlay' }, { label: '기획서 View', href: 'https://drive.google.com/file/d/1v9p_1MyIw4iXrabMlDN0CpubxitsVtlJ/view?usp=sharing' }, { label: 'Android 앱', href: 'https://github.com/diwony/FoodPlay/releases/latest' }, { label: '홈페이지', href: 'https://diwony.github.io/FoodPlay/', primary: true }]
     }
   ];
 
