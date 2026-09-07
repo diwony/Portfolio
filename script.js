@@ -69,8 +69,8 @@
         'iOS 개발자 계정 없이 웹 코드 하나로 여러 플랫폼 배포 → PWA로 만들고 PWABuilder TWA로 감싼 Android APK를 사이드로딩, Digital Asset Links로 주소창 제거·웹 갱신 시 앱도 자동 최신화'
       ],
       poster: './assets/project-05-poster.jpg',
-      demos: { desktop: './assets/project-05-desktop.mp4', mobile: './assets/project-05-mobile.mp4' },
-      links: [{ label: 'GitHub View', href: 'https://github.com/diwony/FoodPlay' }, { label: '기획서 View', href: 'https://drive.google.com/file/d/1v9p_1MyIw4iXrabMlDN0CpubxitsVtlJ/view?usp=sharing' }, { label: 'Android 앱', href: 'https://github.com/diwony/FoodPlay/releases/latest' }, { label: '홈페이지', href: 'https://diwony.github.io/FoodPlay/', primary: true }]
+      demos: { desktop: './assets/project-05-desktop.mp4', mobile: './assets/project-05-mobile.mp4', app: './assets/project-05-app.mp4' },
+      links: [{ label: 'GitHub View', href: 'https://github.com/diwony/FoodPlay' }, { label: '기획서 View', href: 'https://drive.google.com/file/d/1v9p_1MyIw4iXrabMlDN0CpubxitsVtlJ/view?usp=sharing' }, { label: 'Android App', href: 'https://github.com/diwony/FoodPlay/releases/latest', primary: true }, { label: '홈페이지', href: 'https://diwony.github.io/FoodPlay/', primary: true }]
     }
   ];
 
@@ -110,7 +110,8 @@
   var PREVIEW_VIEWS = [
     { key: 'desktop', label: '데스크톱' },
     { key: 'tablet', label: '태블릿' },
-    { key: 'mobile', label: '모바일' }
+    { key: 'mobile', label: '모바일' },
+    { key: 'app', label: 'App' }
   ];
 
   function clearProjectPreview(mediaWrap) {
@@ -140,8 +141,13 @@
         views.map(function (v) {
           var label = escapeHtml(title) + ' ' + v.label + (isDemo ? ' 사용 예시' : ' 전체 화면');
           if (isDemo) {
-            return '<video class="project-modal__preview-shot is-' + v.key + '-shot" src="' + shots[v.key] +
+            var vid = '<video class="project-modal__preview-shot is-' + v.key + '-shot" src="' + shots[v.key] +
               '" muted loop playsinline autoplay preload="auto" aria-label="' + label + '"></video>';
+            /* the App tab runs the mobile capture inside a floating phone shell */
+            if (v.key === 'app') {
+              return '<div class="project-modal__preview-shot is-app-shot project-modal__phone">' + vid + '</div>';
+            }
+            return vid;
           }
           return '<img class="project-modal__preview-shot is-' + v.key + '-shot" src="' + shots[v.key] +
             '" alt="' + label + '">';
