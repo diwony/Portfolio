@@ -267,6 +267,9 @@ img{max-width:100%}
 /* Pulmuone wordmark has far less internal padding than the CJ lockup, so at the
    same box height its letters read much larger — scale it down to match. */
 .project-card__title-logo--pulmuone{height:1.6em;margin-left:.05em}
+/* FoodPlay is a transparent claymation wordmark (no logo tile), so drop the
+   rounded corners and give it a touch more breathing room from the tagline. */
+.project-card__title-logo--foodplay{height:1.7em;border-radius:0;margin-right:.32em}
 .project-card__face-meta{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:18px}
 .project-card__period{color:var(--muted);font-size:var(--fs-body-md);font-weight:400}
 /* solid violet, like the header CONTACT pill; arrow keeps its slide-on-card-hover */

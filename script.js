@@ -57,6 +57,7 @@
     },
     {
       num: '05', tag: 'PERSONAL PROJECT', title: 'FoodPlay — 냉장고 재료로 찾는 유튜브 요리 도우미',
+      titleHtml: '<img class="project-card__title-logo project-card__title-logo--foodplay" src="./assets/foodplay-logo.png" alt="FoodPlay"> 냉장고 재료로 찾는 유튜브 요리 도우미',
       period: '약 5일', contribution: '100%(개인)',
       stack: ['React 19', 'TypeScript', 'Vite', 'Tailwind CSS v4', 'Expo · React Native 0.86', 'YouTube IFrame Player API', 'Cloudflare Workers · KV', 'YouTube Data API v3', 'Claude API (빌드 타임)'],
       overview: '냉장고 재료를 입력하면 만들 수 있는 유튜브 요리 영상을 찾아주고, 조리 스텝의 타임스탬프를 누르면 영상의 그 장면으로 바로 이동하는 요리 도우미 웹·모바일 앱. 검색 없이 훑어보다 발견하는 홈, 자취생·1인가구 등 페르소나 맞춤 추천, 롱폼/숏폼 전환, 절약 금액·댓글 반응 요약도 함께 제공하며, 기획·디자인·프론트엔드부터 자막→스텝 변환 파이프라인(Claude API)까지 1인 진행.',
