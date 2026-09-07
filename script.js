@@ -57,18 +57,20 @@
     },
     {
       num: '05', tag: 'PERSONAL PROJECT', title: 'FoodPlay — 냉장고 재료로 찾는 유튜브 요리 도우미',
+      titleHtml: '<img class="project-card__title-logo project-card__title-logo--foodplay" src="./assets/foodplay-logo.png" alt="FoodPlay"> 냉장고 재료로 찾는 유튜브 요리 도우미',
       period: '약 5일', contribution: '100%(개인)',
-      stack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'React Native (Expo)', 'YouTube IFrame Player API', 'Cloudflare Workers', 'YouTube Data API'],
-      overview: '냉장고에 있는 재료를 입력하면 만들 수 있는 유튜브 요리 영상을 찾아주고, 조리 스텝마다 붙은 타임스탬프를 누르면 영상의 그 장면으로 바로 이동하는 요리 도우미 웹·앱. 1인 개인 프로젝트로 기획·디자인·프론트엔드·데이터 파이프라인 전 과정을 담당.',
+      stack: ['React 19', 'TypeScript', 'Vite', 'Tailwind CSS v4', 'Expo · React Native 0.86', 'PWA · TWA (Android APK)', 'YouTube IFrame Player API', 'Cloudflare Workers · KV', 'YouTube Data API v3', 'Claude API (빌드 타임)'],
+      overview: '냉장고 재료를 입력하면 만들 수 있는 유튜브 요리 영상을 찾아주고, 조리 스텝의 타임스탬프를 누르면 영상의 그 장면으로 바로 이동하는 요리 도우미 웹·모바일 앱. 검색 없이 훑어보다 발견하는 홈, 자취생·1인가구 등 페르소나 맞춤 추천, 롱폼/숏폼 전환, 절약 금액·댓글 반응 요약도 함께 제공하며, 기획·디자인·프론트엔드부터 자막→스텝 변환 파이프라인(Claude API)까지 1인 진행.',
       problems: [
-        '레시피 영상에서 원하는 조리 장면을 찾기 번거로운 문제 → 스텝마다 타임스탬프 seek + 스크롤 시 우상단 미니 플레이어(PiP) 고정으로 영상과 스텝을 동시에 확인',
-        '"가진 재료로 뭘 만들지 모르겠다" → 재료·기분·상황(자유 입력 포함)을 고르면 결과가 실제로 좁혀지는 매칭·랭킹 로직, 냉장고·밀키트·장보기·디저트 4가지 시작 모드로 진입점 분리',
-        '영상 목록이 금방 낡고 API 키 노출·할당량 위험이 있는 문제 → 빌드 타임 큐레이션 + 11,000+ 영상 풀(1층) 위에 실시간 유튜브 검색(2층)을 얹고, 키를 숨긴 Cloudflare Workers 프록시(24h 캐시) 경유. 프록시·할당량이 없어도 1층 풀로 조용히 폴백해 화면이 비지 않음',
-        '웹(React)과 모바일(React Native)의 코드 중복 문제 → 매칭·데이터 로직을 @foodplay/core 패키지로 100% 공유'
+        '레시피 영상에서 원하는 장면 찾기가 번거로움 → 스텝별 타임스탬프 seek + 스크롤 시 미니 플레이어(PiP) 고정, iframe 재생성 없이 CSS만 바꿔 재생 끊김 제거',
+        '"가진 재료로 뭘 할지 모르겠다" → 재료·기분·상황을 칩·자유 문장으로 받는 매칭·랭킹 로직, 4가지 시작 모드로 진입점 분리',
+        '조회수 정렬 시 인기 채널이 상단 독식 → 채널 반복마다 커지는 감점으로 그리디 재정렬해 비슷한 후보 사이에서만 다양화',
+        '정적 배포라 API 키 노출·목록 노후 위험 → 키 숨긴 Cloudflare Workers 프록시 + 11,000+ 영상 풀로 조용히 폴백',
+        'iOS 개발자 계정 없이 웹 코드 하나로 여러 플랫폼 배포 → PWA로 만들고 PWABuilder TWA로 감싼 Android APK를 사이드로딩, Digital Asset Links로 주소창 제거·웹 갱신 시 앱도 자동 최신화'
       ],
       poster: './assets/project-05-poster.jpg',
-      demos: { desktop: './assets/project-05-desktop.mp4', mobile: './assets/project-05-mobile.mp4' },
-      links: [{ label: 'GitHub View', href: 'https://github.com/diwony/FoodPlay' }, { label: '기획서 View', href: 'https://drive.google.com/file/d/1v9p_1MyIw4iXrabMlDN0CpubxitsVtlJ/view?usp=sharing' }, { label: '홈페이지', href: 'https://diwony.github.io/FoodPlay/', primary: true }]
+      demos: { desktop: './assets/project-05-desktop.mp4', mobile: './assets/project-05-mobile.mp4', app: './assets/project-05-app.mp4' },
+      links: [{ label: 'GitHub View', href: 'https://github.com/diwony/FoodPlay' }, { label: '기획서 View', href: 'https://drive.google.com/file/d/1v9p_1MyIw4iXrabMlDN0CpubxitsVtlJ/view?usp=sharing' }, { label: 'Android App', href: 'https://github.com/diwony/FoodPlay/releases/latest', primary: true }, { label: '홈페이지', href: 'https://diwony.github.io/FoodPlay/', primary: true }]
     }
   ];
 
@@ -108,7 +110,8 @@
   var PREVIEW_VIEWS = [
     { key: 'desktop', label: '데스크톱' },
     { key: 'tablet', label: '태블릿' },
-    { key: 'mobile', label: '모바일' }
+    { key: 'mobile', label: '모바일' },
+    { key: 'app', label: 'App' }
   ];
 
   function clearProjectPreview(mediaWrap) {
@@ -138,8 +141,13 @@
         views.map(function (v) {
           var label = escapeHtml(title) + ' ' + v.label + (isDemo ? ' 사용 예시' : ' 전체 화면');
           if (isDemo) {
-            return '<video class="project-modal__preview-shot is-' + v.key + '-shot" src="' + shots[v.key] +
+            var vid = '<video class="project-modal__preview-shot is-' + v.key + '-shot" src="' + shots[v.key] +
               '" muted loop playsinline autoplay preload="auto" aria-label="' + label + '"></video>';
+            /* the App tab runs the mobile capture inside a floating phone shell */
+            if (v.key === 'app') {
+              return '<div class="project-modal__preview-shot is-app-shot project-modal__phone">' + vid + '</div>';
+            }
+            return vid;
           }
           return '<img class="project-modal__preview-shot is-' + v.key + '-shot" src="' + shots[v.key] +
             '" alt="' + label + '">';
