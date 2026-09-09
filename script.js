@@ -427,14 +427,6 @@
       splitCount = splitChars(el, splitCount);
     });
 
-    /* The ABOUT label runs its own short cascade, restarting from zero. */
-    var about = hero.querySelector('.hero__about');
-    var aboutLabel = about && about.querySelector('span');
-    if (aboutLabel) {
-      splitChars(aboutLabel, 0);
-      about.classList.add('is-split');
-    }
-
     if (reduceMotion) {
       hero.classList.add('is-loaded');
     } else {
