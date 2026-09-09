@@ -56,7 +56,7 @@
       links: [{ label: 'GitHub View', href: '#' }, { label: '기획서 View', href: '#' }]
     },
     {
-      num: '05', tag: 'PERSONAL PROJECT', title: 'FoodPlay — 냉장고 재료로 찾는 유튜브 요리 도우미',
+      num: '05', tag: 'WEB · APP PROJECT', title: 'FoodPlay — 냉장고 재료로 찾는 유튜브 요리 도우미',
       titleHtml: '<img class="project-card__title-logo project-card__title-logo--foodplay" src="./assets/foodplay-logo.png" alt="FoodPlay"> 냉장고 재료로 찾는 유튜브 요리 도우미',
       period: '약 5일', contribution: '100%(개인)',
       stack: ['React 19', 'TypeScript', 'Vite', 'Tailwind CSS v4', 'Expo · React Native 0.86', 'PWA · TWA (Android APK)', 'YouTube IFrame Player API', 'Cloudflare Workers · KV', 'YouTube Data API v3', 'Claude API (빌드 타임)'],
