@@ -23,16 +23,7 @@
       ]
     },
     {
-      num: '02', tag: 'VIDEO PROJECT', title: '영상 프로젝트 02',
-      period: '기간을 입력하세요', contribution: '기여도를 입력하세요',
-      stack: ['STACK 01', 'STACK 02', 'STACK 03'],
-      overview: '프로젝트의 목표와 핵심 내용을 입력하세요.',
-      problems: ['문제 상황과 해결 방식을 입력하세요.'],
-      poster: null,
-      links: [{ label: 'GitHub View', href: '#' }, { label: '기획서 View', href: '#' }]
-    },
-    {
-      num: '03', tag: 'WEB RENEWAL', title: '풀무원 웹사이트 리디자인 프로젝트',
+      num: '02', tag: 'WEB RENEWAL', title: '풀무원 웹사이트 리디자인 프로젝트',
       titleHtml: '<img class="project-card__title-logo project-card__title-logo--pulmuone" src="./assets/pulmuone-logo.png" alt="풀무원"> 웹사이트 리디자인 프로젝트',
       period: '약 3주 (총 작업일 18일)', contribution: '33%(Team) — 리서치·UX/UI 디자인·퍼블리싱',
       stack: ['Figma', 'Tailwind CSS', 'GSAP', 'Swiper', 'HTML/CSS/JS', 'GitHub', 'Claude Code', 'Codex'],
@@ -47,16 +38,7 @@
       links: [{ label: 'GitHub View', href: 'https://github.com/icerence/kiwik-project' }, { label: '기획서 View', href: 'https://drive.google.com/file/d/13ipthNM4yUBRVQWvSoFvmLFcGWYYJo2n/view?usp=sharing' }, { label: '홈페이지', href: 'https://icerence.github.io/kiwik-project/', primary: true }]
     },
     {
-      num: '04', tag: 'WEB RENEWAL', title: '홈페이지 리뉴얼 02',
-      period: '기간을 입력하세요', contribution: '기여도를 입력하세요',
-      stack: ['STACK 01', 'STACK 02', 'STACK 03'],
-      overview: '프로젝트의 목표와 핵심 내용을 입력하세요.',
-      problems: ['문제 상황과 해결 방식을 입력하세요.'],
-      poster: null,
-      links: [{ label: 'GitHub View', href: '#' }, { label: '기획서 View', href: '#' }]
-    },
-    {
-      num: '05', tag: 'WEB · APP PROJECT', title: 'FoodPlay — 냉장고 재료로 찾는 유튜브 요리 도우미',
+      num: '03', tag: 'WEB · APP PROJECT', title: 'FoodPlay — 냉장고 재료로 찾는 유튜브 요리 도우미',
       titleHtml: '<img class="project-card__title-logo project-card__title-logo--foodplay" src="./assets/foodplay-logo.png" alt="FoodPlay"> 냉장고 재료로 찾는 유튜브 요리 도우미',
       period: '약 5일', contribution: '100%(개인)',
       stack: ['React 19', 'TypeScript', 'Vite', 'Tailwind CSS v4', 'Expo · React Native 0.86', 'PWA · TWA (Android APK)', 'YouTube IFrame Player API', 'Cloudflare Workers · KV', 'YouTube Data API v3', 'Claude API (빌드 타임)'],
