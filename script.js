@@ -23,7 +23,7 @@
       ]
     },
     {
-      num: '02', tag: 'WEB RENEWAL', title: '풀무원 웹사이트 리디자인 프로젝트',
+      num: '02', tag: 'WEB RENEWAL', accent: 'green', title: '풀무원 웹사이트 리디자인 프로젝트',
       titleHtml: '<img class="project-card__title-logo project-card__title-logo--pulmuone" src="./assets/pulmuone-logo.png" alt="풀무원"> 웹사이트 리디자인 프로젝트',
       period: '약 3주 (총 작업일 18일)', contribution: '33%(Team) — 리서치·UX/UI 디자인·퍼블리싱',
       stack: ['Figma', 'Tailwind CSS', 'GSAP', 'Swiper', 'HTML/CSS/JS', 'GitHub', 'Claude Code', 'Codex'],
@@ -70,7 +70,7 @@
         ? '<img class="project-card__thumb" src="' + p.poster + '" alt="' + escapeHtml(p.title) + ' 썸네일" loading="lazy">'
         : '<div class="project-card__thumb project-card__thumb--empty">PROJECT IMAGE REPLACE HERE</div>';
       return '<li class="card" style="--index:' + (i + 1) + '">' +
-          '<article class="card__content project-card reveal" data-project-index="' + i + '">' +
+          '<article class="card__content project-card reveal" data-project-index="' + i + '"' + (p.accent ? ' data-accent="' + p.accent + '"' : '') + '>' +
             '<div class="project-card__media">' + media + '</div>' +
             '<div class="project-card__face">' +
               '<div class="project-card__face-head"><span class="project-card__num">' + p.num + '</span><span class="project-card__tag">' + escapeHtml(p.tag) + '</span></div>' +

@@ -269,6 +269,12 @@ img{max-width:100%}
 .project-card__period{color:var(--muted);font-size:var(--fs-body-md);font-weight:400}
 /* solid violet, like the header CONTACT pill; arrow keeps its slide-on-card-hover */
 .project-card__detail-btn{display:flex;align-items:center;gap:12px;padding:17px 32px;border:0;border-radius:100px;font-family:inherit;font-size:var(--fs-body-lg);font-weight:600;color:#fff;cursor:pointer;--hero-btn-base:#6c5ce7;--hero-btn-fill-color:#1c1533}
+/* Pulmuone card: swap the site's default violet for the brand's green so the
+   card doesn't clash with the green-toned thumbnail. */
+.project-card[data-accent="green"]{background:#eaf6ee;box-shadow:0 3px 8px rgba(20,70,45,.14),0 16px 30px -10px rgba(20,70,45,.30),0 40px 70px -22px rgba(20,70,45,.44),inset 0 2px 4px rgba(255,255,255,.9),inset 0 -22px 42px -24px rgba(30,90,55,.22)}
+.project-card[data-accent="green"]:hover{box-shadow:0 5px 12px rgba(20,70,45,.16),0 24px 44px -12px rgba(20,70,45,.36),0 60px 100px -26px rgba(20,70,45,.55),inset 0 2px 4px rgba(255,255,255,.95),inset 0 -22px 42px -24px rgba(30,90,55,.24)}
+.project-card[data-accent="green"] .project-card__num{color:#2f9e5c}
+.project-card[data-accent="green"] .project-card__detail-btn{--hero-btn-base:#2f9e5c;--hero-btn-fill-color:#123822}
 .project-card__detail-btn span{transition:transform .3s cubic-bezier(.16,1,.3,1)}
 .project-card:hover .project-card__detail-btn span{transform:translateX(4px)}
 
