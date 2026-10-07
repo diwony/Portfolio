@@ -6,7 +6,7 @@
     {
       num: '01', tag: 'VIDEO PROJECT', title: 'CJ대한통운 숏폼 광고 영상 제작 프로젝트',
       titleHtml: '<img class="project-card__title-logo" src="./assets/art_600145_1682904729.png" alt="CJ대한통운"> 숏폼 광고 영상 제작 프로젝트',
-      period: '2주 (총 작업일 10일)', contribution: '100%(개인)',
+      period: '약 2주 (총 작업일 10일)', contribution: '100%(개인)',
       stack: ['Premiere', 'After Effects', 'Nano Banana', 'Gemini', 'Suno'],
       overview: "CJ대한통운을 '배송' 중심 이미지에서 첨단기술 기반 '물류 디자인 기업'으로 리브랜딩하기 위한 숏폼 광고 영상 기획",
       problems: [
