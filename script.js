@@ -23,7 +23,26 @@
       ]
     },
     {
-      num: '02', tag: 'WEB RENEWAL', accent: 'green', title: '풀무원 웹사이트 리디자인 프로젝트',
+      num: '02', tag: 'VIDEO PROJECT', accent: 'night',
+      title: '나는 매일 꿈을 꾼다 — AI 생성 공포 앤솔로지 숏폼',
+      period: '약 15일', contribution: '100%(개인)',
+      stack: ['Google Flow', 'Higgsfield Seedance 2.5', 'Claude', 'CapCut'],
+      overview: '한 남자가 매일 밤 다른 악몽을 꾸고, 마지막에 "깨어 있는 동안"도 꿈이었음이 드러나는 세로형 공포 앤솔로지. 인트로 + 6편 + 엔딩을 한 편으로 이어 붙인 2분 7초 숏폼으로, 주제 설정·시나리오·레퍼런스 이미지·프롬프트 설계·AI 영상 생성·편집·자막·마감까지 전 과정을 1인으로 진행',
+      problems: [
+        '편마다 다른 꿈인데 같은 인물이어야 하는 문제 → Google Flow로 주인공 레퍼런스 이미지를 먼저 확정해 모든 생성에 첨부하고, 영상 프롬프트에서는 얼굴 묘사를 빼 편별 의상·공간만 바꿔 동일 인물 유지',
+        'AI 생성 특유의 과장된 연기·손 왜곡을 프롬프트 끝 [금지사항] 블록으로 차단("과장 없이 절제된 공포", "손가락 다섯 개·괴물 발톱 금지")하고, 글자는 생성하지 않고 편집에서 입힘',
+        '짧은 한국어 대사의 발음이 뭉개지는 문제를 속마음 내레이션으로 바꾸거나, 캡컷에서 음성을 분리해 TTS·직접 녹음으로 교체해 해결',
+        '6편이 따로 노는 옴니버스가 되지 않도록 1~4편 모티프를 5편에서 한꺼번에 회수하고, 편당 컷 수를 달리해(4편 약 5컷 정적 긴장 / 5편 약 11컷 빠른 회수) 리듬을 설계',
+        '생성 원본이 720×1280에 그치는 한계를 업스케일 1080×1920 출력과 전체 조정 레이어 필름 그레인·컬러 매칭으로 보완해 편 간 질감을 통일'
+      ],
+      poster: './assets/project-02-poster.jpg',
+      links: [
+        { label: '포트폴리오 View', href: 'https://drive.google.com/file/d/1qp96WGDE_udfl_cFiseaU0xso6h9IPcl/view?usp=sharing' },
+        { label: '영상 보기', href: 'https://drive.google.com/file/d/16YvomgN79JhEhgpgQ8vTISzrcIeRel_8/view?usp=sharing', primary: true }
+      ]
+    },
+    {
+      num: '03', tag: 'WEB RENEWAL', accent: 'green', title: '풀무원 웹사이트 리디자인 프로젝트',
       titleHtml: '<img class="project-card__title-logo project-card__title-logo--pulmuone" src="./assets/pulmuone-logo.png" alt="풀무원"> 웹사이트 리디자인 프로젝트',
       period: '약 3주 (총 작업일 18일)', contribution: '33%(Team) — 리서치·UX/UI 디자인·퍼블리싱',
       stack: ['Figma', 'Tailwind CSS', 'GSAP', 'Swiper', 'HTML/CSS/JS', 'GitHub', 'Claude Code', 'Codex'],
@@ -38,7 +57,7 @@
       links: [{ label: 'GitHub View', href: 'https://github.com/icerence/kiwik-project' }, { label: '기획서 View', href: 'https://drive.google.com/file/d/13ipthNM4yUBRVQWvSoFvmLFcGWYYJo2n/view?usp=sharing' }, { label: '홈페이지', href: 'https://icerence.github.io/kiwik-project/', primary: true }]
     },
     {
-      num: '03', tag: 'WEB · APP PROJECT', title: 'FoodPlay — 냉장고 재료로 찾는 유튜브 요리 도우미',
+      num: '04', tag: 'WEB · APP PROJECT', title: 'FoodPlay — 냉장고 재료로 찾는 유튜브 요리 도우미',
       titleHtml: '<img class="project-card__title-logo project-card__title-logo--foodplay" src="./assets/foodplay-logo.png" alt="FoodPlay"> 냉장고 재료로 찾는 유튜브 요리 도우미',
       period: '약 5일', contribution: '100%(개인)',
       stack: ['React 19', 'TypeScript', 'Vite', 'Tailwind CSS v4', 'Expo · React Native 0.86', 'PWA · TWA (Android APK)', 'YouTube IFrame Player API', 'Cloudflare Workers · KV', 'YouTube Data API v3', 'Claude API (빌드 타임)'],

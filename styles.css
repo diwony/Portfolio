@@ -275,6 +275,12 @@ img{max-width:100%}
 .project-card[data-accent="green"]:hover{box-shadow:0 5px 12px rgba(20,70,45,.16),0 24px 44px -12px rgba(20,70,45,.36),0 60px 100px -26px rgba(20,70,45,.55),inset 0 2px 4px rgba(255,255,255,.95),inset 0 -22px 42px -24px rgba(30,90,55,.24)}
 .project-card[data-accent="green"] .project-card__num{color:#2f9e5c}
 .project-card[data-accent="green"] .project-card__detail-btn{--hero-btn-base:#2f9e5c;--hero-btn-fill-color:#123822}
+/* "나는 매일 꿈을 꾼다" card: the thumbnail is a near-black navy, so the violet
+   default reads as a clash — pick up the film's own 심야 블루 instead. */
+.project-card[data-accent="night"]{background:#e9eef5;box-shadow:0 3px 8px rgba(16,34,52,.16),0 16px 30px -10px rgba(16,34,52,.32),0 40px 70px -22px rgba(16,34,52,.46),inset 0 2px 4px rgba(255,255,255,.9),inset 0 -22px 42px -24px rgba(25,55,85,.22)}
+.project-card[data-accent="night"]:hover{box-shadow:0 5px 12px rgba(16,34,52,.18),0 24px 44px -12px rgba(16,34,52,.38),0 60px 100px -26px rgba(16,34,52,.56),inset 0 2px 4px rgba(255,255,255,.95),inset 0 -22px 42px -24px rgba(25,55,85,.24)}
+.project-card[data-accent="night"] .project-card__num{color:#2f5d82}
+.project-card[data-accent="night"] .project-card__detail-btn{--hero-btn-base:#2f5d82;--hero-btn-fill-color:#0b1118}
 .project-card__detail-btn span{transition:transform .3s cubic-bezier(.16,1,.3,1)}
 .project-card:hover .project-card__detail-btn span{transform:translateX(4px)}
 
