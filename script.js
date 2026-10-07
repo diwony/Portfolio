@@ -36,6 +36,7 @@
         '생성 원본이 720×1280에 그치는 한계를 업스케일 1080×1920 출력과 전체 조정 레이어 필름 그레인·컬러 매칭으로 보완해 편 간 질감을 통일'
       ],
       poster: './assets/project-02-poster.jpg',
+      phone: true, still: './assets/project-02-still.jpg', video: './assets/project-02.mp4',
       links: [
         { label: '포트폴리오 View', href: 'https://drive.google.com/file/d/1qp96WGDE_udfl_cFiseaU0xso6h9IPcl/view?usp=sharing' },
         { label: '영상 보기', href: 'https://drive.google.com/file/d/16YvomgN79JhEhgpgQ8vTISzrcIeRel_8/view?usp=sharing', primary: true }
@@ -115,8 +116,37 @@
     { key: 'app', label: 'App' }
   ];
 
+  /* A single upright iPhone holding a 9:16 film, for projects whose deliverable
+     is the vertical video itself. Click-to-play with sound, like project 01 —
+     the 16:9 media box would otherwise crop a portrait film to a letterbox. */
+  function buildPhoneVideo(mediaWrap, p, title) {
+    mediaWrap.classList.add('has-phone');
+    var pv = document.createElement('div');
+    pv.className = 'project-modal__preview is-phone';
+    pv.innerHTML =
+      '<div class="project-modal__phones">' +
+        '<figure class="project-modal__phone is-ios">' +
+          '<div class="project-modal__phone-screen">' +
+            '<video src="' + p.video + '" poster="' + (p.still || '') + '" playsinline preload="none"' +
+              ' aria-label="' + escapeHtml(title) + ' 영상"></video>' +
+            '<button class="project-modal__play" type="button" aria-label="영상 재생"></button>' +
+          '</div>' +
+        '</figure>' +
+      '</div>';
+    mediaWrap.appendChild(pv);
+
+    var screen = pv.querySelector('.project-modal__phone-screen');
+    var vid = pv.querySelector('video');
+    pv.querySelector('.project-modal__play').addEventListener('click', function () {
+      screen.classList.add('is-playing');
+      vid.controls = true;
+      vid.play().catch(function () {});
+    });
+  }
+
   function clearProjectPreview(mediaWrap) {
     mediaWrap.classList.remove('has-preview');
+    mediaWrap.classList.remove('has-phone');
     var existing = mediaWrap.querySelector('.project-modal__preview');
     if (existing) {
       existing.querySelectorAll('video').forEach(function (v) { v.pause(); v.removeAttribute('src'); v.load(); });
@@ -251,7 +281,7 @@
       mediaImg.style.display = 'none';
     }
 
-    if (p.video) {
+    if (p.video && !p.phone) {
       mediaVideo.src = p.video;
       mediaVideo.poster = p.poster || '';
       playBtn.style.display = '';
@@ -260,7 +290,11 @@
     }
 
     clearProjectPreview(mediaWrap);
-    if (p.demos) {
+    if (p.phone) {
+      mediaImg.style.display = 'none';
+      playBtn.style.display = 'none';
+      buildPhoneVideo(mediaWrap, p, p.title);
+    } else if (p.demos) {
       mediaImg.style.display = 'none';
       playBtn.style.display = 'none';
       buildProjectPreview(mediaWrap, p.demos, p.title, true);

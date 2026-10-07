@@ -337,6 +337,15 @@ body.modal-open{overflow:hidden}
   display:flex;align-items:center;justify-content:center;
   width:100%;height:100%;max-width:none;max-height:none;
 }
+/* Single upright iPhone for a 9:16 film (project 02): the media box drops its
+   16/9 ratio and the phone sets the height instead. */
+.project-modal__media.has-phone{flex:0 0 46%;aspect-ratio:auto;height:clamp(340px,60vh,520px);align-self:stretch;background:linear-gradient(170deg,#1b2d3d,#0b1118 70%)}
+.project-modal__preview.is-phone{display:flex;align-items:center;justify-content:center;background:transparent}
+.project-modal__preview.is-phone .project-modal__phones{--ph-h:clamp(310px,56vh,490px);display:flex;align-items:center;justify-content:center;width:100%;height:100%}
+/* the film is 9:16, so give this screen the film's ratio — no crop, no bars */
+.project-modal__preview.is-phone .project-modal__phone-screen{width:calc(var(--ph-h) * .5625)}
+.project-modal__preview.is-phone .project-modal__play{display:block;width:64px;height:64px}
+.project-modal__preview.is-phone .project-modal__phone-screen.is-playing .project-modal__play{display:none}
 .project-modal__phones .project-modal__phone{margin:0;flex:0 0 auto}
 .project-modal__phones .project-modal__phone-screen{
   position:relative;box-sizing:border-box;height:var(--ph-h);width:calc(var(--ph-h) * .463);padding:6px;
@@ -535,6 +544,8 @@ footer .footer__top:hover{transform:scale(1.08);opacity:1}
   .project-modal__title{margin-right:44px;font-size:22px}
   .project-modal__body{flex-direction:column;gap:24px}
   .project-modal__media{flex:none;align-self:stretch;width:100%;aspect-ratio:16/9}
+  .project-modal__media.has-phone{flex:none;width:100%;aspect-ratio:auto;height:min(66vh,500px)}
+  .project-modal__preview.is-phone .project-modal__phones{--ph-h:min(62vh,460px)}
   .project-modal__media.has-preview{flex:none;width:100%;height:min(62vh,460px)}
   .project-modal__media .project-modal__preview.is-demo .project-modal__preview-stage.is-app .project-modal__phones{--ph-h:clamp(200px,40vh,300px)}
   .project-modal__key{flex-basis:96px;white-space:normal}
