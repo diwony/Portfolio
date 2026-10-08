@@ -27,7 +27,7 @@
       title: '나는 매일 꿈을 꾼다 — AI 공포 옴니버스 숏필름',
       period: '약 7일',
       contribution: '100% (1인 기획 · 제작)',
-      stack: ['Google Flow', 'Claude', 'Higgsfield · Seedance 2.5', 'Premiere Pro', 'CapCut', 'Envato Elements'],
+      stack: ['Google Flow', 'Claude', 'Higgsfield · Seedance 2.5', 'Premiere Pro', 'CapCut'],
       overview: '한 남자가 매일 밤 다른 악몽을 꾸고, 마지막에 "깨어 있는 동안"도 꿈이었음이 드러나는 세로형 공포 옴니버스 숏필름. 인트로 + 6편 + 엔딩을 한 편으로 이어 붙인 2분 8초 분량(9:16 · 1080×1920 · 30fps)으로, 주제 설정 · 시나리오 · 레퍼런스 이미지 · 프롬프트 설계 · AI 영상 생성 · 편집 · 자막 · 마감까지 전 과정을 1인 기획 · 제작으로 진행. 기획 2일 → 영상 생성 2일 → 편집 3일로 작업',
       problems: [
         '편마다 다른 꿈인데 같은 인물이어야 하는 문제 → Google Flow로 주인공 레퍼런스 이미지를 먼저 확정해 모든 생성에 첨부하고, 영상 프롬프트에서는 얼굴 묘사를 빼 편별 의상 · 공간만 바꿔 동일 인물 유지',
