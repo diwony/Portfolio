@@ -23,7 +23,7 @@
       ]
     },
     {
-      num: '02', tag: 'VIDEO PROJECT', accent: 'night', keyword: '영상 연출 · 편집',
+      num: '02', tag: 'VIDEO PROJECT', accent: 'night', keyword: '생성형 AI 영상 연출',
       title: '나는 매일 꿈을 꾼다 — AI 공포 옴니버스 숏필름',
       period: '약 7일',
       contribution: '100% (1인 기획 · 제작)',
@@ -58,7 +58,7 @@
       links: [{ label: 'GitHub View', href: 'https://github.com/icerence/kiwik-project' }, { label: '기획서 View', href: 'https://drive.google.com/file/d/13ipthNM4yUBRVQWvSoFvmLFcGWYYJo2n/view?usp=sharing' }, { label: '홈페이지', href: 'https://icerence.github.io/kiwik-project/', primary: true }]
     },
     {
-      num: '04', tag: 'WEB · APP PROJECT', keyword: '서비스 기획 · 프론트엔드', title: 'FoodPlay — 냉장고 재료로 찾는 유튜브 요리 도우미',
+      num: '04', tag: 'WEB · APP PROJECT', keyword: '서비스 기획 · 웹/앱 개발', title: 'FoodPlay — 냉장고 재료로 찾는 유튜브 요리 도우미',
       titleHtml: '<img class="project-card__title-logo project-card__title-logo--foodplay" src="./assets/foodplay-logo.png" alt="FoodPlay"> 냉장고 재료로 찾는 유튜브 요리 도우미',
       period: '약 5일', contribution: '100%(개인)',
       stack: ['React 19', 'TypeScript', 'Vite', 'Tailwind CSS v4', 'Expo · React Native 0.86', 'PWA · TWA (Android APK)', 'YouTube IFrame Player API', 'Cloudflare Workers · KV', 'YouTube Data API v3', 'Claude API (빌드 타임)'],
