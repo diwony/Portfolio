@@ -39,7 +39,7 @@
       poster: './assets/project-02-poster.jpg',
       phone: true, still: './assets/project-02-still.jpg', video: './assets/project-02.mp4',
       links: [
-        { label: '포트폴리오 View', href: 'https://drive.google.com/file/d/1PiVocmBkLq48LGLPAjoYYQS2tnr1GKA6/view?usp=sharing' },
+        { label: '기획서 View', href: 'https://drive.google.com/file/d/1lUYG1Eh2N3RxlQnowzEba_G3B2OJ-Vqt/view?usp=sharing' },
         { label: '영상 보기', href: 'https://drive.google.com/file/d/16YvomgN79JhEhgpgQ8vTISzrcIeRel_8/view?usp=sharing', primary: true }
       ]
     },
