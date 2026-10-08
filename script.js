@@ -4,7 +4,7 @@
   /* ---------- Project cards + detail modal ---------- */
   var PROJECTS = [
     {
-      num: '01', tag: 'VIDEO PROJECT', title: 'CJ대한통운 숏폼 광고 영상 제작 프로젝트',
+      num: '01', tag: 'VIDEO PROJECT', keyword: '숏폼 광고 영상', title: 'CJ대한통운 숏폼 광고 영상 제작 프로젝트',
       titleHtml: '<img class="project-card__title-logo" src="./assets/art_600145_1682904729.png" alt="CJ대한통운"> 숏폼 광고 영상 제작 프로젝트',
       period: '약 2주 (총 작업일 10일)', contribution: '100%(개인)',
       stack: ['Premiere', 'After Effects', 'Nano Banana', 'Gemini', 'Suno'],
@@ -23,7 +23,7 @@
       ]
     },
     {
-      num: '02', tag: 'VIDEO PROJECT', accent: 'night',
+      num: '02', tag: 'VIDEO PROJECT', accent: 'night', keyword: 'AI 영상 콘텐츠',
       title: '나는 매일 꿈을 꾼다 — AI 공포 옴니버스 숏필름',
       period: '약 7일',
       contribution: '100% (1인 기획 · 제작)',
@@ -43,7 +43,7 @@
       ]
     },
     {
-      num: '03', tag: 'WEB RENEWAL', accent: 'green', title: '풀무원 웹사이트 리디자인 프로젝트',
+      num: '03', tag: 'WEB RENEWAL', accent: 'green', keyword: '반응형 웹 퍼블리싱', title: '풀무원 웹사이트 리디자인 프로젝트',
       titleHtml: '<img class="project-card__title-logo project-card__title-logo--pulmuone" src="./assets/pulmuone-logo.png" alt="풀무원"> 웹사이트 리디자인 프로젝트',
       period: '약 3주 (총 작업일 18일)', contribution: '33%(Team) — 리서치·UX/UI 디자인·퍼블리싱',
       stack: ['Figma', 'Tailwind CSS', 'GSAP', 'Swiper', 'HTML/CSS/JS', 'GitHub', 'Claude Code', 'Codex'],
@@ -58,7 +58,7 @@
       links: [{ label: 'GitHub View', href: 'https://github.com/icerence/kiwik-project' }, { label: '기획서 View', href: 'https://drive.google.com/file/d/13ipthNM4yUBRVQWvSoFvmLFcGWYYJo2n/view?usp=sharing' }, { label: '홈페이지', href: 'https://icerence.github.io/kiwik-project/', primary: true }]
     },
     {
-      num: '04', tag: 'WEB · APP PROJECT', title: 'FoodPlay — 냉장고 재료로 찾는 유튜브 요리 도우미',
+      num: '04', tag: 'WEB · APP PROJECT', keyword: '웹 · 앱 서비스 기획', title: 'FoodPlay — 냉장고 재료로 찾는 유튜브 요리 도우미',
       titleHtml: '<img class="project-card__title-logo project-card__title-logo--foodplay" src="./assets/foodplay-logo.png" alt="FoodPlay"> 냉장고 재료로 찾는 유튜브 요리 도우미',
       period: '약 5일', contribution: '100%(개인)',
       stack: ['React 19', 'TypeScript', 'Vite', 'Tailwind CSS v4', 'Expo · React Native 0.86', 'PWA · TWA (Android APK)', 'YouTube IFrame Player API', 'Cloudflare Workers · KV', 'YouTube Data API v3', 'Claude API (빌드 타임)'],
@@ -93,6 +93,7 @@
           '<article class="card__content project-card reveal" data-project-index="' + i + '"' + (p.accent ? ' data-accent="' + p.accent + '"' : '') + '>' +
             '<div class="project-card__media">' + media + '</div>' +
             '<div class="project-card__face">' +
+              (p.keyword ? '<span class="project-card__keyword">' + escapeHtml(p.keyword) + '</span>' : '') +
               '<div class="project-card__face-head"><span class="project-card__num">' + p.num + '</span><span class="project-card__tag">' + escapeHtml(p.tag) + '</span></div>' +
               '<h3 class="project-card__title">' + (p.titleHtml || escapeHtml(p.title)) + '</h3>' +
               '<div class="project-card__face-meta">' +
